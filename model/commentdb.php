@@ -5,7 +5,7 @@ function insert_review(){
     //create info for users
     global $db;
     
-    $query = "INSERT INTO images (text, user_id, serv_id) VALUES ('".$_POST['text']."', '".$_POST['serv_id']."', ".$_POST['user_id'].")";
+    $query = "INSERT INTO reviews (text, user_id, serv_id) VALUES ('".$_POST['text']."', '".$_POST['serv_id']."', ".$_POST['user_id'].")";
     $result = $db->query($query);
 }
 
@@ -25,11 +25,18 @@ function get_reviews(){
 
 function update_message(){
     //update info for user
+    global $db;
+    
+    $query = "UPDATE reviews (text, user_id, serv_id) SET reviews ('".$_POST['text']."', '".$_POST['serv_id']."', ".$_POST['user_id'].")";
+    $result = $db->query($query);
 }
 
 function delete_message(){
     //delete info for user
-    
+       global $db;
+    $query = "DELETE FROM reviews WHERE comm_id = ".$_POST['comm_id']."";
+    $result = $db->query($query);
+    echo json_encode($result->fetchAll());
 }
 
 ?>
