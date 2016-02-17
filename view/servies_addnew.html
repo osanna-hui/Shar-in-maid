@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add New Service</title>
+    </head>
+    <body>
+        <input type="text" id="serv_type" placeholder="Service Type"/><br/>
+        <input type="text" id="serv_desc" placeholder="Service Description"/><br/>
+        <input type="text" id="serv_price" placeholder="Service Price"/><br/>
+        <input type="text" id="serv_area" placeholder="Service Area"/><br/>
+        <button id="serv_sub">Create New Post</button>
+        <hr/>
+        <div id="display"></div>
+        
+
+
+    </body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        var user_id = -1;
+        $(document).ready(function(){
+            document.getElementById("sub").onclick = function(){
+                $.ajax({
+                   url:"cont/user.php",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        method:"login",
+                        method:"login",
+                        username:document.getElementById("username").value,
+                        password:document.getElementById("password").value
+                    },
+                    success:function(resp){
+                        console.log(resp);
+                        console.log("USER logged in!");
+                        
+                        var text_sub = document.getElementById("text_sub");
+                        text_sub.onclick = function(){
+                            $.ajax({
+                               url:"cont/services_c.php",
+                                dataType:"json",
+                                type:"POST",
+                                data:{
+                                    method:"insert",
+                                    type:document.getElementById("serv_type").value,
+                                    desc:document.getElementById("serv_desc").value,
+                                    price:document.getElementById("serv_price").value,
+                                    area:document.getElementById("serv_area").value,
+                                    user_id:resp[0].id
+                                },
+                                success:function(resp){
+                                    //console.log(resp);
+                                    console.log("Message Sent");
+                                    
+                                }
+                            }); 
+                        }
+                    }
+                });
+            }
+
+            
+            
+        });
+    </script>
+
+</html>
