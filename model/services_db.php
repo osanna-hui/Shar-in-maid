@@ -1,14 +1,14 @@
 <?php
-include("connect.php");
+include("./connect.php");
 
-function insert_serv(){
+function insert_services(){
     global $db;
     $query = "INSERT INTO services (serv_type, serv_desc, serv_price, serv_area, user_id) VALUES ('".$_POST['type']."', '".$_POST['desc']."', '".$_POST['price']."', '".$_POST['area']."', ".$_POST['user_id']." )";
     $result = $db->query($query);
     echo json_encode($result->fetchAll());
 }
 
-function get_serv(){
+function get_services(){
     global $db;
     //(SELECT COUNT(*) FROM likes WHERE likes.message_id = messages.id) AS numLikes
     //this line selects new query within a query
@@ -24,14 +24,14 @@ function get_serv(){
      echo json_encode($result->fetchAll());
 }
 
-function update_serv(){
+function update_services(){
     global $db;
     $query = "UPDATE services SET serv_type, serv_desc, serv_price, serv_area WHERE serv_type = '".$_POST['type']."', serv_desc = '".$_POST['type']."', serv_price = '".$_POST['type']."', serv_area = '".$_POST['type']."'";
      $result = $db->query($query);
      echo json_encode($result->fetchAll());
 }
 
-function delete_serv(){
+function delete_services(){
     global $db;
     $query = "DELETE FROM services WHERE serv_id = '".$_POST['serv_id']."' ";
      $result = $db->query($query);
