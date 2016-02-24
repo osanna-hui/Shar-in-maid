@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+</head>
+<body>
+	<input type='text' id='firstname' placeholder='Firstname' />
+	<input type='text' id='lastname' placeholder='Lastname' />
+	<input type='text' id='username' placeholder='Username' />
+	<input type='password' id='password' placeholder='Password' />
+	<input type='text' id='email' placeholder='Email Address'></input>
+	<input type='text' id='address' placeholder='Address' />
+	<input type='text' id='city' placeholder='City' />
+    <input type='text' id='profileimg' placeholder='IMGAKSJD' />
+	<button id='sub'>Register</button>
+
+</body>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        //when button is clicked insert into db
+        document.getElementById("sub").onclick = function(){
+            //console.log("clicked!");
+            //ajax
+            $.ajax({
+               url:"../controller/user_c.php",
+                dataType:"html",
+                type:"POST",
+                data:{
+                    method:"insert_user",
+                    firstname:document.getElementById("firstname").value,
+                    lastname:document.getElementById("lastname").value,
+                    username:document.getElementById("username").value,
+                    password:document.getElementById("password").value,
+                    email:document.getElementById("email").value,
+                    address:document.getElementById("address").value,
+                    city:document.getElementById("city").value,
+                    profileimg:document.getElementById("profileimg").value
+
+
+                },
+                success:function(resp){
+                    alert("USER CREATED");
+                }
+            });
+        }
+    });
+</script>
+</html>
