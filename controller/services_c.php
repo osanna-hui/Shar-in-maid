@@ -11,10 +11,10 @@ if($_POST['method'] == "get_serv"){
 }
 
 if($_POST['method'] == "update_serv"){
-    update_serv();
+    update_services();
 }
 if($_POST['method'] == "delete_serv"){
-    delete_serv();
+    delete_services();
 }
 
 ?>

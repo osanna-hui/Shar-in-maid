@@ -2,7 +2,7 @@
 include("userdb.php");
 
 if($_POST['method'] == "insert_user"){
-    insert_image();
+    insert_users();
 }
 
 if($_POST['method'] == "get_users"){
