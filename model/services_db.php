@@ -1,5 +1,5 @@
 <?php
-include("./connect.php");
+include("connect.php");
 
 function insert_services(){
     global $db;

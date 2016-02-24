@@ -12,37 +12,37 @@
         <hr/>
         <div id="display"></div>
         
-    </body>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script>
-        var userid = "1";
-        $(document).ready(function(){
-            document.getElementById("serv_sub").onclick = function(){
-                //console.log("click");
-                //console.log(document.getElementById("serv_type").value);
-                $.ajax({
-                   url:"../controller/services_c.php",
-                    dataType:"JSON",
-                    type:"POST",
-                    data:{
-                        method:"insert_serv",
-                        type:document.getElementById("serv_type").value,
-                        desc:document.getElementById("serv_desc").value,
-                        price:document.getElementById("serv_price").value,
-                        area:document.getElementById("serv_area").value,
-                        user_id:userid
-                    },
-                    success:function(resp){
-                        console.log(resp);
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-                    },
-                    error:function(){
-                        console.log("error");
-                    }
-                }); 
-            }   
-        });
-    </script>
+        <script>
+            var userid = "1";
+            $(document).ready(function(){
+                document.getElementById("serv_sub").onclick = function(){
+                    console.log("click");
+                    console.log(document.getElementById("serv_type").value);
+                    $.ajax({
+                        url:"../controller/services_c.php",
+                        dataType:"json",
+                        type:"POST",
+                        data:{
+                            method:"insert_serv",
+                            serv_type:document.getElementById("serv_type").value,
+                            serv_desc:document.getElementById("serv_desc").value,
+                            serv_price:document.getElementById("serv_price").value,
+                            serv_area:document.getElementById("serv_area").value,
+                            user_id:userid
+                        },
+                        success:function(resp){
+                            console.log(resp);
+                            console.log("post inserted");
+                        }
+                        
+                    });
+                }   
+            });
+        </script>
+        </body>
 
 </html>
