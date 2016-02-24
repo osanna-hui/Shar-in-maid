@@ -11,6 +11,15 @@ function insert_user(){
     
 }
 
+function user_logged_in(){
+    global $db;
+    
+    $query = "SELECT user_id FROM users WHERE username = '".$_POST['username']."' AND password = '".$_POST['username']."'";
+    $result = $db->query($query);
+    
+    echo json_encode($result->fetchAll());
+}
+
 function get_users(){
     //read info for users; get the users by id: when you click on the img, you do a select in the db to grab their info where id is equal to what is clicked on
     global $db;

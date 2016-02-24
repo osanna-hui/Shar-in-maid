@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shar'n Maid | Profile</title>
+    </head>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
+    <body>
+        <input id='username' type='text' placeholder='USERNAME'/>
+        <input id='password' type='password' placeholder='PASSWORD'/>
+        <button id='loginbut'>Login</button>
+    
+    </body>
+    <script>
+        $(document).ready(function(){
+            
+            //USER LOGIN
+            document.getElementById("loginbut").onclick = function(){
+                //ajax
+                $.ajax({
+                    url:"../controller/user_c.php",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        method:"login",
+                        username:document.getElementById("username").value,
+                        password:document.getElementById("password").value,
+                        //user_id:user_id
+                    },
+                    success:function(resp){
+                        alert("USER LOGGED IN!");
+                        console.log(resp);
+                        //user_id = resp[0].user_id;
+                    }
+                    
+                });
+            } 
+        });
+    </script>
+
+</html>
