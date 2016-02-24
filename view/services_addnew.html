@@ -15,13 +15,11 @@
     
     
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
         <script>
             var userid = "1";
             $(document).ready(function(){
                 document.getElementById("serv_sub").onclick = function(){
-                    console.log("click");
-                    console.log(document.getElementById("serv_type").value);
+                
                     $.ajax({
                         url:"../controller/services_c.php",
                         dataType:"json",
@@ -43,6 +41,5 @@
                 }   
             });
         </script>
-        </body>
-
+    </body> 
 </html>
