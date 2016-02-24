@@ -13,6 +13,7 @@
     <script>
         $(document).ready(function(){
             
+            var user_id = -1;
             //USER LOGIN
             document.getElementById("loginbut").onclick = function(){
                 //ajax
@@ -29,7 +30,7 @@
                     success:function(resp){
                         alert("USER LOGGED IN!");
                         console.log(resp);
-                        //user_id = resp[0].user_id;
+                        user_id = resp[0].user_id;
                     }
                     
                 });
