@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shar'n Maid | Services</title>
+    </head>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
+    <body>
+        <input id='service_type' type='text' placeholder='SERVICE TYPE'/>
+        <input id='service_desc' type='text' placeholder='SERVICE DESCRIPTION'/>
+        <input id='service_price' type='text' placeholder='SERVICE PRICE'/>
+        <input id='service_area' type='text' placeholder='SERVICE AREA'/>
+        <button id='submit'>SUBMIT SERVICE</button>
+    
+    </body>
+    <script>
+        $(document).ready(function(){
+            
+            
+            document.getElementById("submit").onclick = function(){
+                //ajax
+                $.ajax({
+                    url:"../controller/service_c.php",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        method:"insert_service",
+                        type:document.getElementById("service_type").value,
+                        desc:document.getElementById("service_desc").value,
+                        price:document.getElementById("service_price").value,
+                        area:document.getElementById("service_area").value,
+                        user_id:1
+                    },
+                    success:function(resp){
+                        alert("service submitted");
+                        console.log(resp);
+                        //user_id = resp[0].user_id;
+                    }
+                    
+                });
+            } 
+        });
+    </script>
+
+</html>
