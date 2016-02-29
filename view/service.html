@@ -2,6 +2,16 @@
 <html>
     <head>
         <title>Shar'n Maid | Services</title>
+
+        <style>
+            #service_div{
+                display:inline-block;
+                width:300px;
+                background-color:#eee;
+                margin:15px;
+                padding:15px;
+            }
+        </style>
     </head>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
     <body>
@@ -10,17 +20,16 @@
         <input id='service_price' type='text' placeholder='SERVICE PRICE'/>
         <input id='service_area' type='text' placeholder='SERVICE AREA'/>
         <button id='submit'>SUBMIT SERVICE</button>
-    
+        <hr/>
+        <div id="display"></div>
     </body>
     <script>
         $(document).ready(function(){
-            
-            
             document.getElementById("submit").onclick = function(){
-                //ajax
+                console.log("submit service post");
                 $.ajax({
                     url:"../controller/service_c.php",
-                    dataType:"json",
+                    dataType:"html",
                     type:"POST",
                     data:{
                         method:"insert_service",
@@ -33,11 +42,47 @@
                     success:function(resp){
                         alert("service submitted");
                         console.log(resp);
-                        //user_id = resp[0].user_id;
                     }
                     
                 });
-            } 
+            }
+            
+            $.ajax({
+                url:"../controller/service_c.php",
+                dataType:"json",
+                type:"POST",
+                data:{
+                    method:"get_service",
+                },
+                success:function(resp){
+                    
+                    console.log(resp);
+                    
+                    for (i=0; i<resp.length; i++){
+                        var display = document.getElementById("display");
+                        var service_div = document.createElement("div");
+                        service_div.id = "service_div";
+                        var h2 = document.createElement("h2");
+                        h2.innerHTML = "Service Type: "+resp[i].serv_type;
+                        var desc = document.createElement("p");
+                        desc.innerHTML = "Description: "+resp[i].serv_desc;
+                        var price = document.createElement("h3");
+                        price.innerHTML = "Price: "+resp[i].serv_price;
+                        var area = document.createElement("h4");
+                        area.innerHTML = "Area(s): "+resp[i].serv_area;
+                        var user = document.createElement("p");
+                        user.innerHTML = "Posted By: "+resp[i].username;
+                        service_div.appendChild(h2);
+                        service_div.appendChild(desc);
+                        service_div.appendChild(price);
+                        service_div.appendChild(area);
+                        service_div.appendChild(user);
+                        display.appendChild(service_div);
+                    }
+                }
+            });
+            
+             
         });
     </script>
 
