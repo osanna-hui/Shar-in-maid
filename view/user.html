@@ -8,18 +8,23 @@
         <input id='username' type='text' placeholder='USERNAME'/>
         <input id='password' type='password' placeholder='PASSWORD'/>
         <button id='loginbut'>Login</button>
+        <hr/>
+        <div id='updateUserDiv'></div><button id='update_userbut'>UPDATE USERNAME</button>
+        <div id='profile'>
+        </div>
     
     </body>
     <script>
         $(document).ready(function(){
             
-            var user_id = -1;
+            //var user_id = -1;
+            var editDiv = null;
             //USER LOGIN
             document.getElementById("loginbut").onclick = function(){
                 //ajax
                 $.ajax({
                     url:"../controller/user_c.php",
-                    dataType:"html",
+                    dataType:"json",
                     type:"POST",
                     data:{
                         method:"login",
@@ -30,11 +35,149 @@
                     success:function(resp){
                         alert("USER LOGGED IN!");
                         console.log(resp);
-                        user_id = resp[0].user_id;
-                    }
-                    
+                        //user_id = resp[0].user_id;
+                        
+                       /*$.ajax({
+                           url:"../controller/user_c.php",
+                           dataType:"json",
+                           data:{
+                                method:"view"
+                           },
+                           type:"POST",
+                           success:function(resp){
+                               console.log(resp);
+                               //user_id = resp[0].user_id;
+                               
+                               var br = document.createElement("br");
+                               var profile = document.getElementById("profile");
+                               //profile.innerHTML = resp;
+                               var username = document.createElement("span");
+                               username.innerHTML = resp[0].username;
+                               profile.appendChild(username);
+                               profile.appendChild(br);
+                               var password = document.createElement("span");
+                               password.innerHTML = resp[0].password;
+                               profile.appendChild(password);
+                               profile.appendChild(br);
+                               var firstname = document.createElement("span");
+                               firstname.innerHTML = resp[0].firstname;
+                               profile.appendChild(firstname);
+                               profile.appendChild(br);
+                               var lastname = document.createElement("span");
+                               lastname.innerHTML = resp[0].lastname;
+                               profile.appendChild(lastname);
+                               profile.appendChild(br);
+                               var email = document.createElement("span");
+                               email.innerHTML = resp[0].email;
+                               profile.appendChild(email);
+                               profile.appendChild(br);
+                               var address = document.createElement("span");
+                               address.innerHTML = resp[0].address;
+                               profile.appendChild(address);
+                               profile.appendChild(br);
+                               var city = document.createElement("span");
+                               city.innerHTML = resp[0].city;
+                               profile.appendChild(city);
+                               profile.appendChild(br);
+                               
+                               var update = document.createElement("button");
+                               update.innerHTML = "Update Profile";
+                               profile.appendChild(update);
+                               
+                               username.onclick = function(){
+
+                                   var user_input = document.createElement("input");
+                                   user_input.id = "user_input";
+                                   user_input.value = this.innerHTML;
+                                   document.getElementById("updateUserDiv").innerHTML = "";
+                                   document.getElementById("updateUserDiv").appendChild(user_input);
+                                   document.getElementById("update_userbut").dataset.userid = this.dataset.id;
+
+                                   editDiv = this;
+                               }
+                            }
+                       });*/
+                    } 
                 });
-            } 
+                
+                document.getElementById("update_userbut").onclick = function(){
+                    //update the username
+                    var cur_button = this;
+                    var user_id = this.dataset.userid;
+                   $.ajax({
+                       url:"../controller/user_c.php",
+                       dataType:"json",
+                       data:{
+                           method:"update",
+                           id:user_id,
+                           username:document.getElementById("user_input").value
+                       },
+                       type:"POST",
+                       success:function(resp){
+                           alert("UPDATED!");
+                           editDiv.innerHTML = document.getElementById("user_input").value
+                       }
+                   });
+                }
+            }
+            
+           //VIEWING USERNAMES
+               /*$.ajax({
+                   url:"../controller/user_c.php",
+                   dataType:"json",
+                   data:{
+                        method:"view_profile"
+                   },
+                   type:"POST",
+                   success:function(resp){
+                       console.log(resp);
+
+                       //loop through the usernames in the db
+                       for(var i = 0; i<resp.length; i++){
+                           var user_div = document.createElement("div");
+                           user_div.innerHTML = resp[i].username;
+                           document.getElementById("all_usernames").appendChild(user_div);
+
+                           //HTML5 data, we put the database id into the div
+                           user_div.dataset.id = resp[i].id;
+
+                           //onclick this div, update
+                           user_div.onclick = function(){
+
+                               var user_input = document.createElement("input");
+                               user_input.id = "user_input";
+                               user_input.value = this.innerHTML;
+                               document.getElementById("updateUserDiv").innerHTML = "";
+                               document.getElementById("updateUserDiv").appendChild(user_input);
+                               document.getElementById("update_userbut").dataset.userid = this.dataset.id;
+
+                               editDiv = this;
+                           }
+
+                           var user_del = document.createElement("button");
+                           user_del.dataset.id = resp[i].id;
+                           user_del.innerHTML = "Delete";
+                           document.getElementById("all_usernames").appendChild(user_del);
+                           user_del.onclick = function(){
+                               var user_id = this.dataset.id;
+                               $.ajax({
+                                   url:"../cont/username_c.php",
+                                   dataType:"json",
+                                   type:"POST",
+                                   data:{
+                                       method:"delete",
+                                       id:user_id
+                                   },
+                                   success:function(resp){
+                                       alert("DELETED!");
+                                       location.reload();
+                                   }
+                               });
+                           }
+                       }
+                   }
+               });*/
+            
         });
     </script>
 

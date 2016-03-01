@@ -14,14 +14,12 @@ function insert_user(){
 function user_logged_in(){
     global $db;
     
-    $query = "SELECT user_id FROM users WHERE username = '".$_POST['username']."' AND password = '".$_POST['username']."'";
+    $query = "SELECT * FROM users WHERE username = '".$_POST['username']."' AND password = '".$_POST['password']."'";
     $result = $db->query($query);
-    
     echo json_encode($result->fetchAll());
 }
 
 function get_users(){
-    //read info for users; get the users by id: when you click on the img, you do a select in the db to grab their info where id is equal to what is clicked on
     global $db;
     
     $query = "SELECT * FROM users";
@@ -31,14 +29,33 @@ function get_users(){
 
 }
 
+/*function view_profile(){
+    global $db;
+    //$query = "SELECT * FROM users where user_id = 2";
+    $query = "SELECT * FROM users where user_id = ".$_POST['user_id']."";
+    echo $query;
+    //$query = "SELECT users.username, users.password, users.firstname, users.lastname, users.email, users.address, users.city FROM users WHERE user_id = users.user_id";
+    $result = $db->query($query);
+    echo json_encode($result->fetchAll());
+}*/
+
 function update_user(){
     //create info for users
     global $db;
     
-    $query = "UPDATE users (username, password, firstname, lastname, email, address, city, profileimg) SET users  ('".$_POST['username']."', '".$_POST['password']."', '".$_POST['firstname']."', '".$_POST['lastname']."', '".$_POST['email']."', '".$_POST['address']."', '".$_POST['city']."', '".$_POST['profileimg']."')";
+    $query = "UPDATE users (username, password, firstname, lastname, email, address, city, profileimg) SET users ('".$_POST['username']."', '".$_POST['password']."', '".$_POST['firstname']."', '".$_POST['lastname']."', '".$_POST['email']."', '".$_POST['address']."', '".$_POST['city']."', '".$_POST['profileimg']."') WHERE user_id = ".$_POST['user_id']."";
     $result = $db->query($query);
     
     echo json_encode($result->fetchAll());
+}
+
+//temporary
+function update_username(){
+    //update the usernames
+    global $db;
+    $query = "UPDATE users SET username = '".$_POST['username']."' WHERE id = ".$_POST['id']."";
+    $result = $db->query($query);
+    echo json_encode("Updated!");
 }
 
 function delete_user(){
