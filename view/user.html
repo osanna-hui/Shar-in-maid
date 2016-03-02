@@ -9,9 +9,12 @@
         <input id='password' type='password' placeholder='PASSWORD'/>
         <button id='loginbut'>Login</button>
         <hr/>
-        <div id='updateUserDiv'></div><button id='update_userbut'>UPDATE USERNAME</button>
+        <a href="update.html">
+            <button id="updatepage">Update Profile</button>
+        </a>
+        <!--<div id='updateUserDiv'></div><button id='update_userbut'>UPDATE USERNAME</button>
         <div id='profile'>
-        </div>
+        </div>-->
     
     </body>
     <script>
@@ -36,67 +39,52 @@
                         alert("USER LOGGED IN!");
                         console.log(resp);
                         //user_id = resp[0].user_id;
+
                         
-                       /*$.ajax({
-                           url:"../controller/user_c.php",
-                           dataType:"json",
-                           data:{
-                                method:"view"
-                           },
-                           type:"POST",
-                           success:function(resp){
-                               console.log(resp);
-                               //user_id = resp[0].user_id;
-                               
-                               var br = document.createElement("br");
-                               var profile = document.getElementById("profile");
-                               //profile.innerHTML = resp;
-                               var username = document.createElement("span");
-                               username.innerHTML = resp[0].username;
-                               profile.appendChild(username);
-                               profile.appendChild(br);
-                               var password = document.createElement("span");
-                               password.innerHTML = resp[0].password;
-                               profile.appendChild(password);
-                               profile.appendChild(br);
-                               var firstname = document.createElement("span");
-                               firstname.innerHTML = resp[0].firstname;
-                               profile.appendChild(firstname);
-                               profile.appendChild(br);
-                               var lastname = document.createElement("span");
-                               lastname.innerHTML = resp[0].lastname;
-                               profile.appendChild(lastname);
-                               profile.appendChild(br);
-                               var email = document.createElement("span");
-                               email.innerHTML = resp[0].email;
-                               profile.appendChild(email);
-                               profile.appendChild(br);
-                               var address = document.createElement("span");
-                               address.innerHTML = resp[0].address;
-                               profile.appendChild(address);
-                               profile.appendChild(br);
-                               var city = document.createElement("span");
-                               city.innerHTML = resp[0].city;
-                               profile.appendChild(city);
-                               profile.appendChild(br);
-                               
-                               var update = document.createElement("button");
-                               update.innerHTML = "Update Profile";
-                               profile.appendChild(update);
-                               
-                               username.onclick = function(){
+                        
+                           var br = document.createElement("br");
+                           var profile = document.getElementById("profile");
+                           //profile.innerHTML = resp;
+                           var username = document.createElement("h2");
+                           username.innerHTML = resp[0].username;
+                           profile.appendChild(username);
+                           profile.appendChild(br);
+                           var firstname = document.createElement("h2");
+                           firstname.innerHTML = resp[0].firstname;
+                           profile.appendChild(firstname);
+                           profile.appendChild(br);
+                           var lastname = document.createElement("h2");
+                           lastname.innerHTML = resp[0].lastname;
+                           profile.appendChild(lastname);
+                           profile.appendChild(br);
+                           var email = document.createElement("h2");
+                           email.innerHTML = resp[0].email;
+                           profile.appendChild(email);
+                           profile.appendChild(br);
+                           var address = document.createElement("h2");
+                           address.innerHTML = resp[0].address;
+                           profile.appendChild(address);
+                           profile.appendChild(br);
+                           var city = document.createElement("h2");
+                           city.innerHTML = resp[0].city;
+                           profile.appendChild(city);
+                           profile.appendChild(br);
 
-                                   var user_input = document.createElement("input");
-                                   user_input.id = "user_input";
-                                   user_input.value = this.innerHTML;
-                                   document.getElementById("updateUserDiv").innerHTML = "";
-                                   document.getElementById("updateUserDiv").appendChild(user_input);
-                                   document.getElementById("update_userbut").dataset.userid = this.dataset.id;
+                           /*var update = document.createElement("button");
+                           update.innerHTML = "Update Profile";
+                           profile.appendChild(update);*/
 
-                                   editDiv = this;
-                               }
-                            }
-                       });*/
+                           username.onclick = function(){
+
+                               var user_input = document.createElement("input");
+                               user_input.id = "user_input";
+                               user_input.value = this.innerHTML;
+                               document.getElementById("updateUserDiv").innerHTML = "";
+                               document.getElementById("updateUserDiv").appendChild(user_input);
+                               document.getElementById("update_userbut").dataset.userid = this.dataset.id;
+
+                               editDiv = this;
+                           }
                     } 
                 });
                 
@@ -114,6 +102,7 @@
                        },
                        type:"POST",
                        success:function(resp){
+                           console.log(resp);
                            alert("UPDATED!");
                            editDiv.innerHTML = document.getElementById("user_input").value
                        }
