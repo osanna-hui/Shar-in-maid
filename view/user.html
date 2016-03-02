@@ -9,12 +9,21 @@
         <input id='password' type='password' placeholder='PASSWORD'/>
         <button id='loginbut'>Login</button>
         <hr/>
-        <a href="update.html">
-            <button id="updatepage">Update Profile</button>
-        </a>
-        <!--<div id='updateUserDiv'></div><button id='update_userbut'>UPDATE USERNAME</button>
         <div id='profile'>
-        </div>-->
+        </div>
+        <hr/>
+
+        <!--update-->
+        <input id='updated_username' type='text' placeholder='USERNAME'/>
+        <input id='updated_password' type='password' placeholder='PASSWORD'/>
+        <input id='updated_firstname' type='text' placeholder='FIRSTNAME'/>
+        <input id='updated_lastname' type='text' placeholder='LASTNAME'/>
+        <input id='updated_email' type='text' placeholder='EMAIL'/>
+        <input id='updated_address' type='text' placeholder='ADDRESS'/>
+        <input id='updated_city' type='text' placeholder='CITY'/>
+
+        <button id='update_userbut'>UPDATE USER</button>
+        
     
     </body>
     <script>
@@ -73,7 +82,7 @@
                            /*var update = document.createElement("button");
                            update.innerHTML = "Update Profile";
                            profile.appendChild(update);*/
-
+/*
                            username.onclick = function(){
 
                                var user_input = document.createElement("input");
@@ -84,30 +93,39 @@
                                document.getElementById("update_userbut").dataset.userid = this.dataset.id;
 
                                editDiv = this;
-                           }
+                           }*/
+
+                           document.getElementById("update_userbut").onclick = function(){
+                    //update the username
+                              console.log("click");
+                             $.ajax({
+                                 url:"../controller/user_c.php",
+                                 type:"POST",
+                                 dataType:"json",
+                                 data:{
+                                     method:"update_user",
+                                     user_id:resp[0].user_id,
+                                     username:document.getElementById("updated_username").value,
+                                     firstname:document.getElementById("updated_firstname").value,
+                                     lastname:document.getElementById("updated_lastname").value,
+                                     email:document.getElementById("updated_email").value,
+                                     address:document.getElementById("updated_address").value,
+                                     city:document.getElementById("updated_city").value
+                                 },
+                                 
+                                 success:function(resp){
+                                     //console.log(resp);
+                                     alert("UPDATED!");
+                                     //editDiv.innerHTML = document.getElementById("user_input").value
+                                 }
+                             });
+                          }
+
+
                     } 
                 });
                 
-                document.getElementById("update_userbut").onclick = function(){
-                    //update the username
-                    var cur_button = this;
-                    var user_id = this.dataset.userid;
-                   $.ajax({
-                       url:"../controller/user_c.php",
-                       dataType:"json",
-                       data:{
-                           method:"update",
-                           id:user_id,
-                           username:document.getElementById("user_input").value
-                       },
-                       type:"POST",
-                       success:function(resp){
-                           console.log(resp);
-                           alert("UPDATED!");
-                           editDiv.innerHTML = document.getElementById("user_input").value
-                       }
-                   });
-                }
+                
             }
             
            //VIEWING USERNAMES

@@ -43,7 +43,8 @@ function update_user(){
     //create info for users
     global $db;
     
-    $query = "UPDATE users (username, firstname, lastname, email, address, city) SET users ('".$_POST['username']."', '".$_POST['firstname']."', '".$_POST['lastname']."', '".$_POST['email']."', '".$_POST['address']."', '".$_POST['city']."') WHERE user_id = ".$_POST['user_id']."";
+    $query = "UPDATE users SET username = '".$_POST['username']."', firstname = '".$_POST['firstname']."', lastname = '".$_POST['lastname']."', email = '".$_POST['email']."', address = '".$_POST['address']."', city = '".$_POST['city']."' WHERE user_id = '".$_POST['user_id']."'";
+    //$query = "UPDATE users (username, firstname, lastname, email, address, city) SET users ('".$_POST['username']."', '".$_POST['firstname']."', '".$_POST['lastname']."', '".$_POST['email']."', '".$_POST['address']."', '".$_POST['city']."') WHERE user_id = '".$_POST['user_id']."'";
     $result = $db->query($query);
     
     echo json_encode($result->fetchAll());
