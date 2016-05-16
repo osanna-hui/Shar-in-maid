@@ -21,9 +21,9 @@
         <input id='updated_email' type='text' placeholder='EMAIL'/>
         <input id='updated_address' type='text' placeholder='ADDRESS'/>
         <input id='updated_city' type='text' placeholder='CITY'/>
+        <input id='updated_profileimg' type='text' placeholder='IMG PATH SOMETHING'/>
 
         <button id='update_userbut'>UPDATE USER</button>
-        
     
     </body>
     <script>
@@ -48,8 +48,6 @@
                         alert("USER LOGGED IN!");
                         console.log(resp);
                         //user_id = resp[0].user_id;
-
-                        
                         
                            var br = document.createElement("br");
                            var profile = document.getElementById("profile");
@@ -78,23 +76,6 @@
                            city.innerHTML = resp[0].city;
                            profile.appendChild(city);
                            profile.appendChild(br);
-
-                           /*var update = document.createElement("button");
-                           update.innerHTML = "Update Profile";
-                           profile.appendChild(update);*/
-/*
-                           username.onclick = function(){
-
-                               var user_input = document.createElement("input");
-                               user_input.id = "user_input";
-                               user_input.value = this.innerHTML;
-                               document.getElementById("updateUserDiv").innerHTML = "";
-                               document.getElementById("updateUserDiv").appendChild(user_input);
-                               document.getElementById("update_userbut").dataset.userid = this.dataset.id;
-
-                               editDiv = this;
-                           }*/
-
                            document.getElementById("update_userbut").onclick = function(){
                     //update the username
                               console.log("click");
@@ -106,11 +87,13 @@
                                      method:"update_user",
                                      user_id:resp[0].user_id,
                                      username:document.getElementById("updated_username").value,
+                                     password:document.getElementById("updated_password").value,
                                      firstname:document.getElementById("updated_firstname").value,
                                      lastname:document.getElementById("updated_lastname").value,
                                      email:document.getElementById("updated_email").value,
                                      address:document.getElementById("updated_address").value,
-                                     city:document.getElementById("updated_city").value
+                                     city:document.getElementById("updated_city").value,
+                                     profileimg:document.getElementById("updated_profileimg").value
                                  },
                                  
                                  success:function(resp){
@@ -120,71 +103,9 @@
                                  }
                              });
                           }
-
-
                     } 
                 });
-                
-                
             }
-            
-           //VIEWING USERNAMES
-               /*$.ajax({
-                   url:"../controller/user_c.php",
-                   dataType:"json",
-                   data:{
-                        method:"view_profile"
-                   },
-                   type:"POST",
-                   success:function(resp){
-                       console.log(resp);
-
-                       //loop through the usernames in the db
-                       for(var i = 0; i<resp.length; i++){
-                           var user_div = document.createElement("div");
-                           user_div.innerHTML = resp[i].username;
-                           document.getElementById("all_usernames").appendChild(user_div);
-
-                           //HTML5 data, we put the database id into the div
-                           user_div.dataset.id = resp[i].id;
-
-                           //onclick this div, update
-                           user_div.onclick = function(){
-
-                               var user_input = document.createElement("input");
-                               user_input.id = "user_input";
-                               user_input.value = this.innerHTML;
-                               document.getElementById("updateUserDiv").innerHTML = "";
-                               document.getElementById("updateUserDiv").appendChild(user_input);
-                               document.getElementById("update_userbut").dataset.userid = this.dataset.id;
-
-                               editDiv = this;
-                           }
-
-                           var user_del = document.createElement("button");
-                           user_del.dataset.id = resp[i].id;
-                           user_del.innerHTML = "Delete";
-                           document.getElementById("all_usernames").appendChild(user_del);
-                           user_del.onclick = function(){
-                               var user_id = this.dataset.id;
-                               $.ajax({
-                                   url:"../cont/username_c.php",
-                                   dataType:"json",
-                                   type:"POST",
-                                   data:{
-                                       method:"delete",
-                                       id:user_id
-                                   },
-                                   success:function(resp){
-                                       alert("DELETED!");
-                                       location.reload();
-                                   }
-                               });
-                           }
-                       }
-                   }
-               });*/
-            
         });
     </script>
 

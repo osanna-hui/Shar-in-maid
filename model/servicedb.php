@@ -7,11 +7,10 @@ function insert_service(){
     
     $query = "INSERT INTO services (serv_type, serv_desc, serv_price, serv_area, user_id) VALUES ('".$_POST['type']."', '".$_POST['desc']."', '".$_POST['price']."', '".$_POST['area']."', '".$_POST['user_id']."')";
     $result = $db->query($query);
-    //echo json_encode($result->fetchAll());
-    /*
+    echo json_encode($result->fetchAll());
+    
     $data = array("status" => "success", "msg" => "service inserted");
     echo json_encode($data, JSON_FORCE_OBJECT);
-    */
 }
 
 function get_service(){

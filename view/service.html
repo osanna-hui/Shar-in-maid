@@ -61,7 +61,8 @@
         var thisApp = angular.module("sharnMaid", []);
         
         thisApp.controller("serviceControl", ["$scope", function($scope){
-            $scope.serviceName = "Services:";            
+            $scope.serviceName = "Services:";
+            //$scope.divID = "divID";
 
             setInterval(function(){
                 $.ajax({
@@ -119,7 +120,7 @@
                         desc:document.getElementById("service_desc").value,
                         price:document.getElementById("service_price").value,
                         area:document.getElementById("service_area").value,
-                        user_id:
+                        user_id:1
                     },
                     success:function(resp){
                         alert("service submitted");
