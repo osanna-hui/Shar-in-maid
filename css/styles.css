@@ -95,3 +95,27 @@ hr {
     width: 350px;
     background-color: white;
 }
+/* // Log in Form // */
+.login_form {
+    display: block;
+    margin: auto;
+    width: 350px;
+    background-color: white;
+    margin-top: 30px;
+}
+.login_form .form-group {
+    padding: 25px;
+    padding-bottom: 22px;
+    margin-bottom: 0px;
+}
+/* // update Form // */
+.update_form {
+    display: block;
+    margin: auto;
+    width: 350px;
+    background-color: white;
+}
+.update_form .form-group {
+    padding: 25px;
+    padding-bottom: 22px;
+  

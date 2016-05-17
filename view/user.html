@@ -2,28 +2,38 @@
 <html>
     <head>
         <title>Shar'n Maid | Profile</title>
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/styles.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700' rel='stylesheet' type='text/css'>
     </head>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
     <body>
-        <input id='username' type='text' placeholder='USERNAME'/>
-        <input id='password' type='password' placeholder='PASSWORD'/>
-        <button id='loginbut'>Login</button>
-        <hr/>
+
+      <form class="login_form" role="form">
+        <div class="form-group">
+        <input class="form-control" id='username' type='text' placeholder='USERNAME'/>
+        <input class="form-control" id='password' type='password' placeholder='PASSWORD'/>
+        <button class="btn btn-default" id='loginbut'>Login</button>
+        <hr/></div></form>
         <div id='profile'>
         </div>
         <hr/>
 
         <!--update-->
-        <input id='updated_username' type='text' placeholder='USERNAME'/>
-        <input id='updated_password' type='password' placeholder='PASSWORD'/>
-        <input id='updated_firstname' type='text' placeholder='FIRSTNAME'/>
-        <input id='updated_lastname' type='text' placeholder='LASTNAME'/>
-        <input id='updated_email' type='text' placeholder='EMAIL'/>
-        <input id='updated_address' type='text' placeholder='ADDRESS'/>
-        <input id='updated_city' type='text' placeholder='CITY'/>
-        <input id='updated_profileimg' type='text' placeholder='IMG PATH SOMETHING'/>
+        <form class="update_form" role="form">
+          <div class="form-group">
+            <input class="form-control" id='updated_username' type='text' placeholder='USERNAME'/>
+            <input class="form-control" id='updated_password' type='password' placeholder='PASSWORD'/>
+            <input class="form-control" id='updated_firstname' type='text' placeholder='FIRSTNAME'/>
+            <input class="form-control" id='updated_lastname' type='text' placeholder='LASTNAME'/>
+            <input class="form-control" id='updated_email' type='text' placeholder='EMAIL'/>
+            <input class="form-control" id='updated_address' type='text' placeholder='ADDRESS'/>
+            <input class="form-control" id='updated_city' type='text' placeholder='CITY'/>
+            <input class="form-control" id='updated_profileimg' type='text' placeholder='IMG PATH SOMETHING'/>
 
-        <button id='update_userbut'>UPDATE USER</button>
+            <button class="btn btn-default" id='update_userbut'>UPDATE USER</button>
+          </div>
+        </form>
     
     </body>
     <script>
