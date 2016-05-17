@@ -5,7 +5,7 @@ if($_POST['method'] == "insert_user"){
     insert_user();
 }
 
-if($_POST['method'] == "login"){
+if($_POST['method'] == "user_logged_in"){
     user_logged_in();
 }
 

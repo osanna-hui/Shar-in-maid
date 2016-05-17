@@ -44,20 +44,21 @@
             //USER LOGIN
             document.getElementById("loginbut").onclick = function(){
                 //ajax
+                console.log(document.getElementById("username").value);
                 $.ajax({
                     url:"../controller/user_c.php",
                     dataType:"json",
                     type:"POST",
                     data:{
-                        method:"login",
+                        method:"user_logged_in",
                         username:document.getElementById("username").value,
                         password:document.getElementById("password").value,
                         //user_id:user_id
                     },
                     success:function(resp){
                         alert("USER LOGGED IN!");
-                        console.log(resp);
-                        //user_id = resp[0].user_id;
+                        console.log(resp[0]);
+                        sessionStorage.user_id = resp[0].user_id;
                         
                            var br = document.createElement("br");
                            var profile = document.getElementById("profile");

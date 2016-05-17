@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Shar'n Maid | Services</title>
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/styles.css" rel="stylesheet">
+        
+    </head>
+    
+    <body>
+        <form class="service_form" role="form">
+            <div class="form-group">
+                <select id='service_type' placeholder='SERVICE TYPE' required autofocus>
+                    <option value="STUDIO">STUDIO</option>
+                    <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
+                    <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
+                    <option value="ONE BEDROOM TOWN HOUSE">ONE BEDROOM TOWN HOUSE</option>
+                    <option value="TWO OR MORE BEDROOM TOWN HOUSE">TWO OR MORE BEDROOM TOWN HOUSE</option>
+                    <option value="DETACHED HOME">DETACHED HOME</option>
+                </select>
+                <input class="form-control" id='service_desc' placeholder='Service Description' required/>
+                <input class="form-control" id='service_price' type='text' placeholder='Service Price' required/>
+                <input class="form-control" id='service_area' type='text' placeholder='Service Area' required/>
+                <button class="btn btn-default" id='submit'>SUBMIT SERVICE</button>
+            </div>
+        </form>
+        
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            document.getElementById("submit").onclick = function(){
+                console.log("submit service post");
+                console.log(sessionStorage.user_id);
+                $.ajax({
+                    url:"../controller/service_c.php",
+                    dataType:"json",
+                    type:"POST",
+                    data:{
+                        method:"insert_service",
+                        type:document.getElementById("service_type").value,
+                        desc:document.getElementById("service_desc").value,
+                        price:document.getElementById("service_price").value,
+                        area:document.getElementById("service_area").value,
+                        user_id:sessionStorage.user_id,
+                    },
+                    success:function(resp){
+                        alert("service submitted");
+                        console.log(resp);
+                        
+                    }
+                    
+                });
+            }
+        });
+          
+             
+        
+    </script>
+
+</html>
