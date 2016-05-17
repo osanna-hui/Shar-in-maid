@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Shar'n Maid | Services</title>
-
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/styles.css" rel="stylesheet">
         <style>
             body{
                 font-family:sans-serif;
@@ -12,6 +13,7 @@
                 height:30px;
                 padding:5px;
                 margin:5px;
+                width: 200px;
             }
             .service_div{
                 display:inline-block;
@@ -29,6 +31,7 @@
     
     <body>
         <select id='service_type' placeholder='SERVICE TYPE' required autofocus>
+            <div class="service-group">
             <option value="STUDIO">STUDIO</option>
             <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
             <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
@@ -39,7 +42,8 @@
         <input id='service_desc' placeholder='SERVICE DESCRIPTION' required/>
         <input id='service_price' type='text' placeholder='SERVICE PRICE' required/>
         <input id='service_area' type='text' placeholder='SERVICE AREA' required/>
-        <button id='submit'>SUBMIT SERVICE</button>
+        <button class="subserButt" id='submit'>SUBMIT SERVICE</button>
+    </div>
         <hr/>
 
         <div id="display" ng-controller='serviceControl'>
