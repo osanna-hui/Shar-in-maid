@@ -15,6 +15,20 @@
                 margin:5px;
                 width: 200px;
             }
+            button{
+               margin-left:;
+                width: 30%;
+                height: 40px;
+                color: white;
+                background-color: #76459e;
+                font-size: 16px;
+                font-weight: ; 
+            }
+            button:hover {
+                width: 30%;
+                color: white;
+                background-color: #a564d3;
+            }
             .service_div{
                 display:inline-block;
                 width:500px;
@@ -32,7 +46,7 @@
                 bottom:0;
                 left:0;
                 right:0;
-                width:300px;
+                width:500px;
                 height:600px;
                 margin:auto;
                 padding:10px;
@@ -45,6 +59,16 @@
             }
             #close{
                 cursor:pointer;
+                color: #76459e;
+            }
+             #close:hover{
+                cursor:pointer;
+                color:#a564d3;
+
+            }
+            #title{
+                font-size: 20px;
+                color:#66cccc;
             }
         </style>
     </head>
@@ -54,9 +78,9 @@
         <div id="display" ng-controller='serviceControl'>
             <h1>{{serviceName}}</h1>
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
-                <h2>Type: {{service.serv_type}}</h2>
+                <h2 id="title">Type: {{service.serv_type}}</h2>
                 <p>Description: {{service.serv_desc}}</p>
-                <h3>Price: ${{service.serv_price}}</h3>
+                <h2 id="title">Price: ${{service.serv_price}}</h2>
                 <p>Area: {{service.serv_area}}</p>
                 <button id="{{service.serv_id}}" ng-click="edit(service.serv_id)">Edit This Post</button>
                 <button id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete This Post</button>
@@ -118,7 +142,7 @@
                         document.body.appendChild(div);
 
                         var close = document.createElement("div");
-                        close.innerHTML = "close";
+                        close.innerHTML = "X";
                         close.id = "close";
                         div.appendChild(close);
 
