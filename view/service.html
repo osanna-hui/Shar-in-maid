@@ -30,8 +30,9 @@
     </head>
     
     <body>
+        <form class="service_form" role="form">
+            <div class="form-group">
         <select id='service_type' placeholder='SERVICE TYPE' required autofocus>
-            <div class="service-group">
             <option value="STUDIO">STUDIO</option>
             <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
             <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
@@ -39,11 +40,11 @@
             <option value="TWO OR MORE BEDROOM TOWN HOUSE">TWO OR MORE BEDROOM TOWN HOUSE</option>
             <option value="DETACHED HOME">DETACHED HOME</option>
         </select>
-        <input id='service_desc' placeholder='SERVICE DESCRIPTION' required/>
-        <input id='service_price' type='text' placeholder='SERVICE PRICE' required/>
-        <input id='service_area' type='text' placeholder='SERVICE AREA' required/>
-        <button class="subserButt" id='submit'>SUBMIT SERVICE</button>
-    </div>
+        <input class="form-control" id='service_desc' placeholder='Service Description' required/>
+        <input class="form-control" id='service_price' type='text' placeholder='Service Price' required/>
+        <input class="form-control" id='service_area' type='text' placeholder='Service Area' required/>
+        <button class="btn btn-default" id='submit'>SUBMIT SERVICE</button>
+    </div></form>
         <hr/>
 
         <div id="display" ng-controller='serviceControl'>

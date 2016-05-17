@@ -120,20 +120,17 @@ hr {
     padding-bottom: 22px;
 }
 /* // service bar // */
-.subserButt {
-    width: 200px;
-    height: 30px;
-    color: white;
-    background-color: #76459e;
-    border-radius: 0px;
-    box-shadow: none;
-    font-size: 16px;
-    display: inline-block;
+.service_form {
+    display: block;
+    margin: auto;
+    width: 350px;
+    background-color: white;
+}
+.service_form .form-group {
+    padding: 25px;
+    padding-bottom: 22px;
 }
 
-.subserButt:hover {
-    width: 200px;
-    color: white;
-    background-color: #a564d3;
-}
+
+
   
