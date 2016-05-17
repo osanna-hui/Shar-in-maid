@@ -15,6 +15,20 @@
                 margin:5px;
                 width: 200px;
             }
+            button{
+               margin-left:;
+                width: 50%;
+                height: 40px;
+                color: white;
+                background-color: #76459e;
+                font-size: 16px;
+                font-weight: ; 
+            }
+            button:hover {
+                width: 50%;
+                color: white;
+                background-color: #a564d3;
+            }
             .service_div{
                 display:inline-block;
                 width:500px;
@@ -27,10 +41,13 @@
                 padding:15px;
             }
             .serv_title{
-                color:#666;
+                font-size: 12px;
+                color: #76459e;
             }
             .serv_title:hover{
                 cursor:pointer;
+                color:#a564d3;
+
             }
             #info{
                 position:fixed;
@@ -38,7 +55,7 @@
                 bottom:0;
                 left:0;
                 right:0;
-                width:300px;
+                width:400px;
                 height:600px;
                 margin:auto;
                 padding:10px;
@@ -46,12 +63,32 @@
                 background-color:#fff;
                 box-shadow: 20px 20px 20px #999
             }
+
+            #infotitle{
+                font-size: 20px;
+                color:#66cccc;
+            }
+
             #close{
                 float:right;
             }
             .img_title, #close{
                 cursor:pointer;
+                color: #76459e;
             }
+            #close:hover{
+                cursor:pointer;
+                color:#a564d3;
+
+            }
+            .typetitle{
+                font-size: 20px;
+            }
+            #favbut{
+                color: red;
+            }
+            
+
         </style>
     </head>
     
@@ -60,10 +97,10 @@
         <div id="display" ng-controller='serviceControl'>
             <h1>{{serviceName}}</h1>
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
-                <h2>Type: {{service.serv_type}}</h2>
+                <h2 class="typetitle">Type: {{service.serv_type}}</h2>
                 <!-- <p>Description: {{service.serv_desc}}</p> -->
-                <h3>Price: ${{service.serv_price}}</h3>
-                <h3 class="serv_title" id="{{service.serv_id}}">View This Post</h3>
+                <h3 class="typetitle" >Price: ${{service.serv_price}}</h3>
+                <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
                 <!-- <p>Area: {{service.serv_area}}</p>
                 <p>Posted By: {{service.username}}</p> -->
             </div>
@@ -110,7 +147,7 @@
                                 document.body.appendChild(div);
 
                                 var close = document.createElement("div");
-                                close.innerHTML = "close";
+                                close.innerHTML = "X";
                                 close.id = "close";
                                 div.appendChild(close);
 
@@ -120,6 +157,7 @@
 
                                 var h2 = document.createElement("h2");
                                 h2.innerHTML = "Type: "+resp1[0].serv_type;
+                                h2.id = "infotitle";
                                 div.appendChild(h2);
 
                                 var desc = document.createElement("h4");
@@ -170,6 +208,7 @@
                                         var fav = document.createElement("button");
                                         fav.innerHTML = "Add To Favourite";
                                         div.appendChild(fav);
+                                        
 
                                         fav.onclick = function(){
                                             console.log(sessionStorage.user_id);
