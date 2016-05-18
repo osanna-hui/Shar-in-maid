@@ -23,6 +23,8 @@
                 <input class="form-control" id='service_desc' placeholder='Service Description' required/>
                 <input class="form-control" id='service_price' type='text' placeholder='Service Price' required/>
                 <input class="form-control" id='service_area' type='text' placeholder='Service Area' required/>
+                <h3>Upload a profile image</h3>
+                <input id="ServiceImg" type="file" placeholder="IMAGE"/>
                 <button class="btn btn-default" id='submit'>SUBMIT SERVICE</button>
             </div>
         </form>
@@ -32,10 +34,55 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script>
 
-        $(document).ready(function(){
-            document.getElementById("submit").onclick = function(){
+        var myfiles = document.getElementById("ServiceImg");
+        var submit = document.getElementById("submit");
+
+        submit.onclick = function(e){
+            e.preventDefault();
+
+            console.log(sessionStorage.user_id);
+            var formData = new FormData();
+          
+            var allFiles = myfiles.files;
+          
+            for (var i = 0; i<allFiles.length; i++){
+                var file = allFiles[i];
+              
+                if(file.type.match("image/*")){
+                  formData.append("images[]", file, file.name);
+                  formData.append ("userid", sessionStorage.user_id);
+                } else {
+                  alert("IMAGE ONLY!!!");
+                  return false;
+                }
+            }
+          
+            var xhr = new XMLHttpRequest();
+          
+            xhr.open("POST", "upload.php", true);
+          
+            xhr.onload = function(){
+                if(xhr.status == 200){
+                    alert("Loaded upload.php successfully");
+                }
+                if(xhr.status == 404){
+                    alert("Page Not Found!");
+                }
+            }
+           
+            xhr.send(formData);
+          
+            console.log(myfiles.files);
+            console.log(myfiles.files[0].name);
+        
+
+            $(document).ready(function(){
+
                 console.log("submit service post");
-                console.log(sessionStorage.user_id);
+                console.log("user id: "+sessionStorage.user_id);
+                console.log(sessionStorage.user_id+"/"+myfiles.files[0].name);
+                var path = sessionStorage.user_id+"/"+myfiles.files[0].name;
+
                 $.ajax({
                     url:"../controller/service_c.php",
                     dataType:"json",
@@ -46,17 +93,22 @@
                         desc:document.getElementById("service_desc").value,
                         price:document.getElementById("service_price").value,
                         area:document.getElementById("service_area").value,
+                        url:path,
                         user_id:sessionStorage.user_id,
                     },
                     success:function(resp){
                         alert("service submitted");
                         console.log(resp);
                         
+                    },
+                    error:function(error){
+                        console.log(error);
                     }
                     
                 });
-            }
-        });
+            
+            });
+        }
           
              
         
