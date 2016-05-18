@@ -15,6 +15,10 @@ if($_POST['method'] == "get_user_service"){
     get_user_service();
 }
 
+if($_POST['method'] == "search_services"){
+    search_services();
+}
+
 if($_POST['method'] == "update_service"){
     update_service();
 }

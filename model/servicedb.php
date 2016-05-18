@@ -42,6 +42,16 @@ function get_user_service(){
 
 }
 
+function search_services(){
+    global $db;
+    $query = "SELECT services.serv_id, services.serv_type, services.serv_desc, services.serv_price, services.serv_area, users.username FROM services INNER JOIN users ON services.user_id = users.user_id AND services.serv_type = '".$_POST['type']."'";
+
+    $result = $db->query($query);
+    
+    echo json_encode($result->fetchAll());
+
+}
+
 
 function update_service(){
     global $db;
