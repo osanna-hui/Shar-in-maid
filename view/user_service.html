@@ -41,6 +41,7 @@
                 padding:15px;
             }
             #EditDiv{
+                display:none;
                 position:fixed;
                 top:0;
                 bottom:0;
@@ -82,11 +83,31 @@
                 <p>Description: {{service.serv_desc}}</p>
                 <h2 id="title">Price: ${{service.serv_price}}</h2>
                 <p>Area: {{service.serv_area}}</p>
-                <button id="{{service.serv_id}}" ng-click="edit(service.serv_id)">Edit This Post</button>
+                <button class="edit" id="{{service.serv_id}}">Edit This Post</button>
                 <button id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete This Post</button>
                 
             </div>
             <h2 id="no_post"></h2>
+            <div id="EditDiv">
+                <div id="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+                <label for="new_type">New Service Type:</label><br/>
+                <select id='new_type' placeholder='NEW SERVICE TYPE' required autofocus>
+                    <option value="STUDIO">STUDIO</option>
+                    <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
+                    <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
+                    <option value="ONE BEDROOM TOWN HOUSE">ONE BEDROOM TOWN HOUSE</option>
+                    <option value="TWO OR MORE BEDROOM TOWN HOUSE">TWO OR MORE BEDROOM TOWN HOUSE</option>
+                    <option value="DETACHED HOME">DETACHED HOME</option>
+                </select>
+                <br/>
+                <label for="new_desc">New Description:</label><br/>
+                <input id="new_desc" placeholder="NEW DESCRIPTION"/><br/>
+                <label for="new_price">New Price:</label><br/>
+                <input id="new_price" placeholder="NEW PRICE"/><br/>
+                <label for="new_area">New Area:</label><br/>
+                <input id="new_area" placeholder="NEW AREA"/><br/>
+                <button id="update_edits">CONFIRM EDITS</button>
+            </div>
         </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -99,7 +120,7 @@
         thisApp.controller("serviceControl", ["$scope", function($scope){
             $scope.serviceName = "Services Posted By You:";
             
-            console.log(sessionStorage.user_id);
+            console.log("User ID: "+sessionStorage.user_id);
             $.ajax({
                 url:"../controller/service_c.php",
                 dataType:"json",
@@ -135,50 +156,23 @@
                         });
                     }
 
-                    $scope.edit = function(servId){
-                        console.log(servId);
-                        var div = document.createElement("div");
-                        div.id = "EditDiv";
-                        document.body.appendChild(div);
-
-                        var close = document.createElement("div");
-                        close.innerHTML = "X";
-                        close.id = "close";
-                        div.appendChild(close);
-
-                        var type = document.createElement("input");
-                        type.value = resp[0].serv_type;
-                        div.appendChild(type);
-
-                        var desc = document.createElement("input");
-                        desc.value = resp[0].serv_desc;
-                        div.appendChild(desc);
-
-                        var area = document.createElement("input");
-                        area.value = resp[0].serv_area;
-                        div.appendChild(area);
-
-                        var price = document.createElement("input");
-                        price.value = resp[0].serv_price;
-                        div.appendChild(price);
-
-                        var update_button = document.createElement('button');
-                        update_button.innerHTML = 'CONFIRM EDITS';
-                        div.appendChild(update_button);
-
-                        update_button.onclick = function(){
-                            console.log(servId, type.value, desc.value, area.value, price.value);
+                    $(".edit").click(function(){
+                        var serv_id = this.id;
+                        console.log(serv_id);
+                        document.getElementById("EditDiv").style.display = "block";
+                        document.getElementById("update_edits").onclick = function(){
+                            
                             $.ajax({
                                 url:"../controller/service_c.php",
                                 type:"POST",
                                 dataType:"JSON",
                                 data:{
                                     method:"update_service",
-                                    serv_id:servId,
-                                    new_type:type.value,
-                                    new_desc:desc.value,
-                                    new_area:area.value,
-                                    new_price:price.value,
+                                    serv_id:serv_id,
+                                    new_type:document.getElementById("new_type").value,
+                                    new_desc:document.getElementById("new_desc").value,
+                                    new_area:document.getElementById("new_area").value,
+                                    new_price:document.getElementById("new_price").value,
                                 },
                                 success:function(resp2){
                                     location.reload();
@@ -189,17 +183,15 @@
                                 }
                             });
                         }
+
+                    });
                         
 
-                        close.onclick = function(){
-                            div.removeChild(type);
-                            div.removeChild(desc);
-                            div.removeChild(area);
-                            div.removeChild(price);
-                            div.removeChild(update_button);
-                            document.body.removeChild(div);
-                        }   
-                    }
+                        
+                        
+
+                        
+                
                     /*$(".serv_title").click(function(){
                         var id = this.id;
                         console.log(id);
