@@ -42,7 +42,8 @@
             //var user_id = -1;
             var editDiv = null;
             //USER LOGIN
-            document.getElementById("loginbut").onclick = function(){
+            document.getElementById("loginbut").onclick = function(e){
+                e.preventDefault();
                 //ajax
                 console.log(document.getElementById("username").value);
                 $.ajax({
@@ -87,7 +88,8 @@
                            city.innerHTML = resp[0].city;
                            profile.appendChild(city);
                            profile.appendChild(br);
-                           document.getElementById("update_userbut").onclick = function(){
+                           document.getElementById("update_userbut").onclick = function(e){
+                               e.preventDefault();
                     //update the username
                               console.log("click");
                              $.ajax({
