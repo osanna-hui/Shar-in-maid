@@ -17,6 +17,10 @@ if($_POST['method'] == "get_users"){
     get_users();
 }
 
+if($_POST['method'] == "update_profile_img"){
+    update_profile_img();
+}
+
 if($_POST['method'] == "update_user"){
     update_user();
 }

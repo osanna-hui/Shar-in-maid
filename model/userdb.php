@@ -39,6 +39,15 @@ function get_users(){
     echo json_encode($result->fetchAll());
 }*/
 
+function update_profile_img(){
+    global $db;
+    $query = "UPDATE users SET profileimg = '".$_POST['img_url']."' WHERE user_id = '".$_POST['user_id']."'";
+    
+    $result = $db->query($query);
+    echo json_encode($result->fetchAll());
+    
+}
+
 function update_user(){
     //create info for users
     global $db;

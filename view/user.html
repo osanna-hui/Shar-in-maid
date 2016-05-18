@@ -25,6 +25,12 @@
         <hr/>
 
         <!--update-->
+        <div class="update_form">
+          <h3>Upload a profile image</h3>
+          <input id="ProfileImg" type="file" placeholder="YOUR PROFILE IMAGE"/>
+          <button class="btn btn-default" id="upload">UPLOAD PROFILE IMAGE</button>
+        </div>
+        
         <form class="update_form" role="form">
           <div class="form-group">
             <input class="form-control" id='updated_username' type='text' placeholder='Username'/>
@@ -41,6 +47,7 @@
         </form>
     
     </body>
+
     <script>
         $(document).ready(function(){
             
@@ -70,6 +77,12 @@
                            var profile = document.getElementById("profile");
                            profile.id = "profile";
                            //profile.innerHTML = resp;
+                           
+                           var profileimg = document.createElement("img");
+                           profileimg.id = "profileimg";
+                           profileimg.src = "../uploads/"+resp[0].profileimg;
+                           profile.appendChild(profileimg);
+
                            var username = document.createElement("h2");
                            username.innerHTML = "Username : " + resp[0].username;
                            profile.appendChild(username);
@@ -127,5 +140,71 @@
             }
         });
     </script>
+
+<!-- This is the script for uploading image -->
+    <script>
+
+      var myfiles = document.getElementById("ProfileImg");
+      var upload = document.getElementById("upload");
+      
+      upload.onclick = function(e){
+          e.preventDefault();
+
+          console.log(sessionStorage.user_id);
+          var formData = new FormData();
+          
+          var allFiles = myfiles.files;
+          
+          for (var i = 0; i<allFiles.length; i++){
+              var file = allFiles[i];
+              
+              if(file.type.match("image/*")){
+                  formData.append("images[]", file, file.name);
+                  formData.append ("userid", sessionStorage.user_id);
+              } else {
+                  alert("IMAGE ONLY!!!");
+                  return false;
+              }
+          }
+          
+          var xhr = new XMLHttpRequest();
+          
+          xhr.open("POST", "upload.php", true);
+          
+          xhr.onload = function(){
+              if(xhr.status == 200){
+                  alert("Loaded upload.php successfully");
+              }
+              if(xhr.status == 404){
+                  alert("Page Not Found!");
+              }
+          }
+          
+          xhr.send(formData);
+          
+          console.log(myfiles.files);
+          console.log(myfiles.files[0].name);
+
+          $(document).ready(function(){
+            console.log(sessionStorage.user_id+"/"+myfiles.files[0].name);
+              $.ajax({
+                  url:"../controller/user_c.php",
+                  type:"POST",
+                  dataType:"JSON",
+                  data:{
+                      method:"update_profile_img",
+                      user_id:sessionStorage.user_id,
+                      img_url:sessionStorage.user_id+"/"+myfiles.files[0].name
+                  },
+                  success:function(resp){
+                      console.log("uploaded");
+                  }
+              });
+          });
+
+      }
+      
+      
+  </script>
 
 </html>
