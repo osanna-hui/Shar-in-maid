@@ -10,6 +10,26 @@ hr {
     border: 0;
     border-top: 1px solid #dce0e0;
 }
+button{
+   margin-left:;
+    width: 50%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+button:hover {
+    width: 52.5%;
+    color: white;
+    background-color: #a564d3;
+}
+input, select, button{
+    height:30px;
+    padding:5px;
+    margin:5px;
+    width: 200px;
+}
 .logo{
     margin-right: auto;
     margin-left: auto;
@@ -139,6 +159,67 @@ hr {
     padding-bottom: 22px;
 }
 
+/* // all service page // */
+#allsertitle{
+    margin-left: 20px;
+}
+.service_div{
+    display:inline-block;
+    width:500px;
+    background-color:#fff;
+    color:#66cccc;
+    border-radius:5px;
+    border: 1px outset #fff;
+    box-shadow:5px 5px 10px #999;
+    margin:15px;
+    padding:15px;
+}
+.serv_title{
+    font-size: 12px;
+    color: #76459e;
+}
+.serv_title:hover{
+    cursor:pointer;
+    color:#a564d3;
 
+}
+#info{
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width:400px;
+    height:600px;
+    margin:auto;
+    padding:10px;
+    z-index:5;
+    background-color:#fff;
+    box-shadow: 20px 20px 20px #999
+}
+
+#infotitle{
+    font-size: 20px;
+    color:#66cccc;
+}
+
+#close{
+    float:right;
+}
+.img_title, #close{
+    cursor:pointer;
+    color: #76459e;
+}
+#close:hover{
+    cursor:pointer;
+    color:#a564d3;
+
+}
+.typetitle{
+    font-size: 20px;
+}
+#favbut{
+    color: red;
+}
 
   
