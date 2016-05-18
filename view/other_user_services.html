@@ -6,13 +6,10 @@
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/styles.css" rel="stylesheet">
         <style>
-            #info, #no-comments, #user_info{
+            #info, #no-comments{
                 display:none;
             }
-            #profileimg{
-                width:200px;
-                height:auto;
-            }
+
         </style>
     </head>
     
@@ -39,7 +36,6 @@
                     <h4 id="infoprice"></h4>
                     <h3 class="info-labels">POSTED BY:</h3>
                     <h4 id="infouser"></h4>
-                    <button id="viewuser">VIEW PROFILE</button>
                     <button id="fav">ADD TO FAVOURITES</button>
                 </div>
 
@@ -47,21 +43,7 @@
                     <h3 class="info-labels">COMMENTS:</h3>
                     <h5 id="no-comments">Looks like there are no comments for this service</h5>
                 </div>
-                <div id="user_info">
-                    <img id="profileimg"/>
-                    <h3 class="info-labels">USERNAME:</h3>
-                    <h4 id="username"></h4>
-                    <h3 class="info-labels">FIRST NAME:</h3>
-                    <h4 id="firstname"></h4>
-                    <h3 class="info-labels">LAST NAME:</h3>
-                    <h4 id="lastname"></h4>
-                    <h3 class="info-labels">EMAIL:</h3>
-                    <h4 id="email"></h4>
-                    <button id="viewuserposts">VIEW USER'S OTHER POSTS</button>
-                    <button id="backtopost">GO BACK TO POST</button>
-
-                </div>
-            </div>
+                
 
         </div>
     </body>
@@ -80,10 +62,12 @@
                 dataType:"json",
                 type:"POST",
                 data:{
-                    method:"get_service",
+                    method:"get_user_service",
+                    user_id:sessionStorage.view_userID,
                 },
                 success:function(resp){
                     console.log(resp);
+
                     $scope.$apply(function(){
                         $scope.services = resp;
                     });
@@ -108,36 +92,6 @@
                                 document.getElementById("infoarea").innerHTML = resp1[0].serv_area;
                                 document.getElementById("infoprice").innerHTML = resp1[0].serv_price;
                                 document.getElementById("infouser").innerHTML = resp1[0].username;
-
-
-                                document.getElementById("viewuser").onclick = function(){
-                                    document.getElementById("service_info").style.display="none";
-                                    document.getElementById("comments").style.display="none";
-                                    document.getElementById("user_info").style.display = "block";
-
-                                    document.getElementById("username").innerHTML =resp1[0].username;
-                                    document.getElementById("firstname").innerHTML =resp1[0].firstname;
-                                    document.getElementById("lastname").innerHTML =resp1[0].lastname;
-                                    document.getElementById("email").innerHTML =resp1[0].email;
-
-                                    if (resp1[0].profileimg == ''){
-                                        document.getElementById("profileimg").src = resp1[0].profileimg;
-                                    } else {
-                                        document.getElementById("profileimg").src = "../images/sim_jumbotron_cleaning_lady_back.jpg";
-                                    }
-                                    
-                                    document.getElementById("viewuserposts").onclick = function(){
-                                        sessionStorage.view_userID = resp1[0].user_id;
-                                        window.location = "./other_user_services.html";
-                                    }
-
-                                    document.getElementById("backtopost").onclick = function(){
-                                        document.getElementById("service_info").style.display="block";
-                                        document.getElementById("comments").style.display="block";
-                                        document.getElementById("user_info").style.display = "none";
-                                    }
-
-                                }
 
                                 document.getElementById("fav").onclick =function(){
                                     console.log(sessionStorage.user_id);
