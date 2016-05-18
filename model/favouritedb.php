@@ -4,12 +4,12 @@ include("connect.php");
 function insert_favourite(){
     global $db;
     
-    $query = "INSERT INTO favourites (serv_id, user_id) VALUES ('".$_POST['serv_id']."', '".$_POST['user_id']."')";
+    $query = "INSERT INTO favourites (serv_id, user_id) VALUES ('".$_POST['serv_id']."', '".$_POST['user_id']."') ";
     $result = $db->query($query);
     echo json_encode($result->fetchAll());
     
-    $data = array("status" => "success", "msg" => "favourite inserted");
-    echo json_encode($data, JSON_FORCE_OBJECT);
+    //$data = array("status" => "success", "msg" => "favourite inserted");
+    //echo json_encode($data, JSON_FORCE_OBJECT);
 }
 
 function get_user_favourite(){

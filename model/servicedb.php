@@ -25,7 +25,7 @@ function get_service(){
 }
 function view_one_service(){
     global $db;
-    $query = "SELECT services.serv_id, services.serv_type, services.serv_desc, services.serv_price, services.serv_area, users.username FROM services INNER JOIN users ON services.user_id = users.user_id AND services.serv_id = '".$_POST['serv_id']."'";
+    $query = "SELECT services.serv_id, services.serv_type, services.serv_desc, services.serv_price, services.serv_area, users.username, users.firstname, users.lastname, users.email, users.profileimg FROM services INNER JOIN users ON services.user_id = users.user_id AND services.serv_id = '".$_POST['serv_id']."'";
 
     $result = $db->query($query);
     

@@ -5,6 +5,18 @@
         <title>Shar'n Maid | Services</title>
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/styles.css" rel="stylesheet">
+        <style>
+            #info, #no-comments, #user_info{
+                display:none;
+            }
+            #profileimg{
+                width:200px;
+                height:auto;
+            }
+            #infouser:hover{
+                cursor:pointer;
+            }
+        </style>
     </head>
     
     <body>
@@ -13,12 +25,46 @@
             <h1 id="allsertitle">{{serviceName}}</h1>
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
                 <h2 class="typetitle">Type: {{service.serv_type}}</h2>
-                <!-- <p>Description: {{service.serv_desc}}</p> -->
                 <h3 class="typetitle" >Price: ${{service.serv_price}}</h3>
                 <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
-                <!-- <p>Area: {{service.serv_area}}</p>
-                <p>Posted By: {{service.username}}</p> -->
             </div>
+
+            <div id="info">
+                <div id="close">X</div>
+                <div id="service_info">
+                    <h3 class="info-labels">TYPE:</h3>
+                    <h2 id="infotitle"></h2>
+                    <h3 class="info-labels">DESCRIPTION:</h3>
+                    <h4 id="infodesc"></h4>
+                    <h3 class="info-labels">AREA:</h3>
+                    <h4 id="infoarea"></h4>
+                    <h3 class="info-labels">PRICE:</h3>
+                    <h4 id="infoprice"></h4>
+                    <h3 class="info-labels">POSTED BY:</h3>
+                    <h4 id="infouser"></h4>
+                    <button id="viewuser">VIEW PROFILE</button>
+                    <button id="fav">ADD TO FAVOURITES</button>
+                </div>
+
+                <div id="comments">
+                    <h3 class="info-labels">COMMENTS:</h3>
+                    <h5 id="no-comments">Looks like there are no comments for this service</h5>
+                </div>
+                <div id="user_info">
+                    <img id="profileimg"/>
+                    <h3 class="info-labels">USERNAME:</h3>
+                    <h4 id="username"></h4>
+                    <h3 class="info-labels">FIRST NAME:</h3>
+                    <h4 id="firstname"></h4>
+                    <h3 class="info-labels">LAST NAME:</h3>
+                    <h4 id="lastname"></h4>
+                    <h3 class="info-labels">EMAIL:</h3>
+                    <h4 id="email"></h4>
+                    <button id="backtopost">GO BACK TO POST</button>
+
+                </div>
+            </div>
+
         </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -57,44 +103,58 @@
                             },
                             success:function(resp1){
                                 console.log(resp1);
-                                var div = document.createElement("div");
-                                div.id = "info";
-                                document.body.appendChild(div);
+                                document.getElementById("info").style.display="block";
 
-                                var close = document.createElement("div");
-                                close.innerHTML = "X";
-                                close.id = "close";
-                                div.appendChild(close);
+                                document.getElementById("infotitle").innerHTML = resp1[0].serv_type;
+                                document.getElementById("infodesc").innerHTML = resp1[0].serv_desc;
+                                document.getElementById("infoarea").innerHTML = resp1[0].serv_area;
+                                document.getElementById("infoprice").innerHTML = resp1[0].serv_price;
+                                document.getElementById("infouser").innerHTML = resp1[0].username;
 
-                                /*var img = document.createElement("img");
-                                img.src = "../img/"+resp1[0].img_url;
-                                div.appendChild(img);*/
 
-                                var h2 = document.createElement("h2");
-                                h2.innerHTML = "Type: "+resp1[0].serv_type;
-                                h2.id = "infotitle";
-                                div.appendChild(h2);
+                                document.getElementById("viewuser").onclick = function(){
+                                    document.getElementById("service_info").style.display="none";
+                                    document.getElementById("comments").style.display="none";
+                                    document.getElementById("user_info").style.display = "block";
 
-                                var desc = document.createElement("h4");
-                                desc.innerHTML = "Desc: "+resp1[0].serv_desc;
-                                div.appendChild(desc);
+                                    document.getElementById("username").innerHTML =resp1[0].username;
+                                    document.getElementById("firstname").innerHTML =resp1[0].firstname;
+                                    document.getElementById("lastname").innerHTML =resp1[0].lastname;
+                                    document.getElementById("email").innerHTML =resp1[0].email;
+                                    
+                                    if (resp1[0].profileimg == ''){
+                                        document.getElementById("profileimg").src = resp1[0].profileimg;
+                                    } else {
+                                        document.getElementById("profileimg").src = "../images/sim_jumbotron_cleaning_lady_back.jpg";
+                                    }
+                                    
 
-                                var area = document.createElement("h4");
-                                area.innerHTML = "Area: "+resp1[0].serv_area;
-                                div.appendChild(area);
+                                    document.getElementById("backtopost").onclick = function(){
+                                        document.getElementById("service_info").style.display="block";
+                                        document.getElementById("comments").style.display="block";
+                                        document.getElementById("user_info").style.display = "none";
+                                    }
 
-                                var price = document.createElement("h4");
-                                price.innerHTML = "Price: $"+resp1[0].serv_price;
-                                div.appendChild(price);
+                                }
 
-                                var username = document.createElement("span");
-                                username.innerHTML = "Posted By: "+resp1[0].username;
-                                div.appendChild(username);
-
-                                var c_head = document.createElement("h3");
-                                c_head.innerHTML = "Comments:";
-                                div.appendChild(c_head);
-
+                                document.getElementById("fav").onclick =function(){
+                                    console.log(sessionStorage.user_id);
+                                    console.log(id);
+                                    $.ajax({
+                                        url:"../controller/favourite_c.php",
+                                        dataType:"JSON",
+                                        type:"POST",
+                                        data:{
+                                            method:"insert_favourite",
+                                            serv_id:id,
+                                            user_id:sessionStorage.user_id,
+                                        },
+                                        success:function(resp3){
+                                            console.log(resp3);
+                                        }
+                                    });
+                                }
+                                
                                 
                                 $.ajax({
                                     url:"../controller/comment_c.php",
@@ -108,53 +168,17 @@
                                         console.log(resp2);
 
                                         if (resp2.length == 0){
-                                            var comment = document.createElement("h4");
-                                            comment.innerHTML = "There's no comment for this service";
-                                            div.appendChild(comment);
+                                            document.getElementById("no-comments").style.display = "block";
                                         }
                                         
                                         for (i=0;i<resp2.length;i++){
-
                                             var comment = document.createElement("h4");
                                             comment.innerHTML = resp2[i].text;
-                                            div.appendChild(comment);
+                                            document.getElementById("comments").appendChild(comment);
                                         }
                                         
-                                        var fav = document.createElement("button");
-                                        fav.innerHTML = "Add To Favourite";
-                                        div.appendChild(fav);
-                                        
-
-                                        fav.onclick = function(){
-                                            console.log(sessionStorage.user_id);
-                                            console.log(id);
-                                            $.ajax({
-                                                url:"../controller/favourite_c.php",
-                                                dataType:"JSON",
-                                                type:"POST",
-                                                data:{
-                                                    method:"insert_favourite",
-                                                    serv_id:id,
-                                                    user_id:sessionStorage.user_id,
-                                                },
-                                                success:function(resp2){
-                                                    alert("Added to Favourites")
-                                                }
-                                            });
-                                               
-                                        }
-
-                                        close.onclick = function(){
-                                            div.removeChild(h2);
-                                            //div.removeChild(img);
-                                            div.removeChild(desc);
-                                            div.removeChild(area);
-                                            div.removeChild(price);
-                                            div.removeChild(username);
-                                            div.removeChild(comment);
-                                            //div.removeChild(no_comment);
-                                            div.removeChild(c_head);
-                                            document.body.removeChild(div);
+                                        document.getElementById("close").onclick = function(){
+                                            document.getElementById("info").style.display="none";
                                         }   
                                     }
                                 });
