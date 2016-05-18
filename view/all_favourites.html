@@ -46,7 +46,7 @@
                 bottom:0;
                 left:0;
                 right:0;
-                width:300px;
+                width:400px;
                 height:600px;
                 margin:auto;
                 padding:10px;
@@ -54,11 +54,24 @@
                 background-color:#fff;
                 box-shadow: 20px 20px 20px #999
             }
+            #commentstitle{
+                font-size: 20px;
+                color:#66cccc;
+            }
             #close{
                 float:right;
             }
             #close{
+                cursor:pointer;    
+                color: #76459e;
+            }
+            #close:hover{
                 cursor:pointer;
+                color:#a564d3;
+
+            }
+            #favtitle{
+                margin-left: 20px;
             }
         </style>
     </head>
@@ -66,7 +79,7 @@
     <body>
         <img class="logo" src="../images/logo.png" alt="Shar'n Maids">
         <div id="display" ng-controller='serviceControl'>
-            <h1>{{serviceName}}</h1>
+            <h1 id="favtitle">{{serviceName}}</h1>
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
                 <h2>Type: {{service.serv_type}}</h2>
                 <p>Description: {{service.serv_desc}}</p>
@@ -126,12 +139,13 @@
                                 document.body.appendChild(div);
 
                                 var close = document.createElement("div");
-                                close.innerHTML = "close";
+                                close.innerHTML = "X";
                                 close.id = "close";
                                 div.appendChild(close);
 
                                 var h2 = document.createElement("h2");
                                 h2.innerHTML = "Comments:";
+                                h2.id = "commentstitle";
                                 div.appendChild(h2);
 
                                 if (resp2.length == 0){
