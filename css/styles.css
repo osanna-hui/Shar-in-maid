@@ -81,6 +81,7 @@ input, select, button{
     box-shadow: none;
     font-size: 16px;
     font-weight: ;
+    margin: auto;
 }
 
 .form-group .btn:hover {
@@ -122,8 +123,11 @@ input, select, button{
     padding-bottom: 15px;
     width: 350px;
     background-color: white;
+    margin-bottom: 10px;
 }
+
 /* // Log in Form // */
+
 .login_form {
     display: block;
     margin: auto;
@@ -136,7 +140,9 @@ input, select, button{
     padding-bottom: 22px;
     margin-bottom: 0px;
 }
+
 /* // update Form // */
+
 .update_form {
     display: block;
     margin: auto;
@@ -147,7 +153,9 @@ input, select, button{
     padding: 25px;
     padding-bottom: 22px;
 }
+
 /* // service bar // */
+
 .service_form {
     display: block;
     margin: auto;
@@ -158,8 +166,88 @@ input, select, button{
     padding: 25px;
     padding-bottom: 22px;
 }
+/* // post service page // */
 
+#service_type{
+    width: 96%;
+}
+
+/* // user page // */
+
+#profile{
+  background-color: #76459e;
+  color:white;
+  width: 350px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 25px;
+
+  }
+#profileh2{
+  font-size: 15px;
+
+}
+
+/* // user service page // */
+
+#EditDiv{
+    display:none;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width:500px;
+    height:600px;
+    margin:auto;
+    padding:10px;
+    z-index:5;
+    background-color:#fff;
+    box-shadow: 20px 20px 20px #999
+}
+#title{
+    font-size: 20px;
+    color:#66cccc;
+}
+#postbytitle{
+    margin-left: 20px;
+}
+.edit{
+   margin-left:;
+    width: 45%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+.edit:hover {
+    width: 45%;
+    color: white;
+    background-color: #a564d3;
+}
+#new_desc{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#new_price{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#new_area{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#new_type{
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
 /* // all service page // */
+
 #allsertitle{
     margin-left: 20px;
 }
@@ -203,6 +291,47 @@ input, select, button{
     color:#66cccc;
 }
 
+/* // all fav page // */
+
+#CommentsDiv{
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width:400px;
+    height:600px;
+    margin:auto;
+    padding:10px;
+    z-index:5;
+    background-color:#fff;
+    box-shadow: 20px 20px 20px #999
+}
+#commentstitle{
+    font-size: 20px;
+    color:#66cccc;
+}
+#favtitle{
+    margin-left: 20px;
+}
+.viewbut{
+
+   margin-left:;
+    width: 45%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+.viewbut:hover {
+    width: 45%;
+    color: white;
+    background-color: #a564d3;
+}    
+
+/* // all pop up // */
+
 #close{
     float:right;
 }
@@ -218,8 +347,6 @@ input, select, button{
 .typetitle{
     font-size: 20px;
 }
-#favbut{
-    color: red;
-}
+
 
   

@@ -5,75 +5,6 @@
         <title>Shar'n Maid | Services</title>
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/styles.css" rel="stylesheet">
-        <style>
-            body{
-                font-family:sans-serif;
-            }
-            input, select, button{
-                height:30px;
-                padding:5px;
-                margin:5px;
-                width: 200px;
-            }
-            button{
-               margin-left:;
-                width: 45%;
-                height: 40px;
-                color: white;
-                background-color: #76459e;
-                font-size: 16px;
-                font-weight: ; 
-            }
-            button:hover {
-                width: 45%;
-                color: white;
-                background-color: #a564d3;
-            }
-            .service_div{
-                display:inline-block;
-                width:500px;
-                background-color:#fff;
-                color:#66cccc;
-                border-radius:5px;
-                border: 1px outset #fff;
-                box-shadow:5px 5px 10px #999;
-                margin:15px;
-                padding:15px;
-            }
-            #CommentsDiv{
-                position:fixed;
-                top:0;
-                bottom:0;
-                left:0;
-                right:0;
-                width:400px;
-                height:600px;
-                margin:auto;
-                padding:10px;
-                z-index:5;
-                background-color:#fff;
-                box-shadow: 20px 20px 20px #999
-            }
-            #commentstitle{
-                font-size: 20px;
-                color:#66cccc;
-            }
-            #close{
-                float:right;
-            }
-            #close{
-                cursor:pointer;    
-                color: #76459e;
-            }
-            #close:hover{
-                cursor:pointer;
-                color:#a564d3;
-
-            }
-            #favtitle{
-                margin-left: 20px;
-            }
-        </style>
     </head>
     
     <body>
@@ -81,13 +12,13 @@
         <div id="display" ng-controller='serviceControl'>
             <h1 id="favtitle">{{serviceName}}</h1>
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
-                <h2>Type: {{service.serv_type}}</h2>
+                <h2 class="typetitle">Type: {{service.serv_type}}</h2>
                 <p>Description: {{service.serv_desc}}</p>
-                <h3>Price: ${{service.serv_price}}</h3>
+                <h3 class="typetitle">Price: ${{service.serv_price}}</h3>
                 <p>Area: {{service.serv_area}}</p>
-                <button id="{{service.serv_id}}" ng-click="comments(service.serv_id)">View Comments</button>
+                <button class="viewbut" id="{{service.serv_id}}" ng-click="comments(service.serv_id)">View Comments</button>
 
-                <button id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete From Favourites</button>
+                <button class="viewbut" id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete From Favourites</button>
                 
             </div>
             <h2 id="no_fav"></h2>
