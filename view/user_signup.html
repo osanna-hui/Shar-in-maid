@@ -17,7 +17,6 @@
             <input class="form-control" type='text' id='email' placeholder='Email address' />
             <input class="form-control" type='text' id='address' placeholder='Address' />
             <input class="form-control" type='text' id='city' placeholder='City' />
-            <input class="form-control" type='text' id='profileimg' placeholder="Maybe an IMG path we'll see not sure yet" />
             <div class="sim_signup_disclaimer">
                 <small>By clicking "Register" you confirm that the above information is correct, and that you agree to sell your soul to us as stated in our <a>Terms of Service </a>and you can't ever get it back. Also, your name will forever be declared "Purple Eyez Kirby".
                 </small>
@@ -39,9 +38,8 @@
     $(document).ready(function(){
 
         //when button is clicked insert into db
-        document.getElementById("sub").onclick = function(){
-            //console.log("clicked!");
-            //ajax
+        document.getElementById("sub").onclick = function(e){
+            e.preventDefault();
             $.ajax({
                url:"../controller/user_c.php",
                 dataType:"html",
@@ -55,13 +53,11 @@
                     email:document.getElementById("email").value,
                     address:document.getElementById("address").value,
                     city:document.getElementById("city").value,
-                    profileimg:document.getElementById("profileimg").value
-
-
+                    profileimg:"../images/profile_placeholder.png",
                 },
                 success:function(resp){
                     alert("USER CREATED");
-                    window.location("./user_login.html");
+                    window.location = "./user_login.html";
                 }
             });
         }
