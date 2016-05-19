@@ -39,7 +39,7 @@
             </div>
             <h2 id="no_post"></h2>
             <div id="EditDiv">
-                <div id="close"><i aria-hidden="true">X</i></div>
+                <div id="close">X</div>
                 <label for="new_type">New Service Type:</label><br/>
                 <select id='new_type' placeholder='NEW SERVICE TYPE' required autofocus>
                     <option value="STUDIO">STUDIO</option>
@@ -110,6 +110,11 @@
                         var serv_id = this.id;
                         console.log(serv_id);
                         document.getElementById("EditDiv").style.display = "block";
+
+                        document.getElementById("close").onclick = function(){
+                            document.getElementById("EditDiv").style.display = "none";
+                        }
+
                         document.getElementById("update_edits").onclick = function(){
                             
                             $.ajax({
@@ -135,101 +140,6 @@
                         }
 
                     });
-                        
-
-                        
-                        
-
-                        
-                
-                    /*$(".serv_title").click(function(){
-                        var id = this.id;
-                        console.log(id);
-                        $.ajax({
-                           url:"../controller/service_c.php",
-                            type:"POST",
-                            dataType:"JSON",
-                            data:{
-                                method:"view_one_service",
-                                serv_id:id,
-                            },
-                            success:function(resp1){
-                                console.log(resp1);
-                                var div = document.createElement("div");
-                                div.id = "info";
-                                document.body.appendChild(div);
-
-                                var close = document.createElement("div");
-                                close.innerHTML = "close";
-                                close.id = "close";
-                                div.appendChild(close);
-
-                                var h2 = document.createElement("h2");
-                                h2.innerHTML = "Type: "+resp1[0].serv_type;
-                                div.appendChild(h2);
-
-                                var desc = document.createElement("h4");
-                                desc.innerHTML = "Desc: "+resp1[0].serv_desc;
-                                div.appendChild(desc);
-
-                                var area = document.createElement("h4");
-                                area.innerHTML = "Area: "+resp1[0].serv_area;
-                                div.appendChild(area);
-
-                                var price = document.createElement("h4");
-                                price.innerHTML = "Price: $"+resp1[0].serv_price;
-                                div.appendChild(price);
-
-                                var c_head = document.createElement("h3");
-                                c_head.innerHTML = "Comments:";
-                                div.appendChild(c_head);
-
-                                var delete_button = document.createElement('button');
-                                delete_button.innerHTML = 'DELETE THIS POST';
-                                div.appendChild(delete_button);*/
-                                
-                                /*$.ajax({
-                                    url:"../controller/comment_c.php",
-                                    dataType:"JSON",
-                                    type:"POST",
-                                    data:{
-                                        method:"get_comment_single_serv",
-                                        serv_id:id
-                                    },
-                                    success:function(resp2){
-                                        console.log(resp2);
-
-                                        if (resp2.length == 0){
-                                            var comment = document.createElement("h4");
-                                            comment.innerHTML = "There's no comment for this service";
-                                            div.appendChild(comment);
-                                        }
-                                        
-                                        for (i=0;i<resp2.length;i++){
-
-                                            var comment = document.createElement("h4");
-                                            comment.innerHTML = resp2[i].text;
-                                            div.appendChild(comment);
-                                        }
-                                        
-                                         close.onclick = function(){
-                                            div.removeChild(h2);
-                                            //div.removeChild(img);
-                                            div.removeChild(desc);
-                                            div.removeChild(area);
-                                            div.removeChild(price);
-                                            
-                                            div.removeChild(comment);
-                                            //div.removeChild(no_comment);
-                                            div.removeChild(c_head);
-                                            document.body.removeChild(div);
-                                        }   
-                                    }
-                                });*/
-                    /*        }
-                        });
-
-                    });*/
                 }
             });
         }]);
