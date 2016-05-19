@@ -16,6 +16,9 @@ if($_POST['method'] == "view"){
 if($_POST['method'] == "get_users"){
     get_users();
 }
+if($_POST['method'] == "get_user_profile"){
+    get_user_profile();
+}
 
 if($_POST['method'] == "update_profile_img"){
     update_profile_img();

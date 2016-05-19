@@ -28,16 +28,16 @@ function get_users(){
     echo json_encode($result->fetchAll());
 
 }
-
-/*function view_profile(){
+function get_user_profile(){
     global $db;
-    //$query = "SELECT * FROM users where user_id = 2";
-    $query = "SELECT * FROM users where user_id = ".$_POST['user_id']."";
-    echo $query;
-    //$query = "SELECT users.username, users.password, users.firstname, users.lastname, users.email, users.address, users.city FROM users WHERE user_id = users.user_id";
+    
+    $query = "SELECT * FROM users WHERE user_id = '".$_POST['user_id']."'";
     $result = $db->query($query);
+    
     echo json_encode($result->fetchAll());
-}*/
+
+}
+
 
 function update_profile_img(){
     global $db;
@@ -52,7 +52,7 @@ function update_user(){
     //create info for users
     global $db;
     
-    $query = "UPDATE users SET username = '".$_POST['username']."', password = '".$_POST['password']."', firstname = '".$_POST['firstname']."', lastname = '".$_POST['lastname']."', email = '".$_POST['email']."', address = '".$_POST['address']."', city = '".$_POST['city']."', profileimg = '".$_POST['profileimg']."' WHERE user_id = '".$_POST['user_id']."'";
+    $query = "UPDATE users SET username = '".$_POST['username']."', password = '".$_POST['password']."', firstname = '".$_POST['firstname']."', lastname = '".$_POST['lastname']."', email = '".$_POST['email']."', address = '".$_POST['address']."', city = '".$_POST['city']."' WHERE user_id = '".$_POST['user_id']."'";
     $result = $db->query($query);
     
     echo json_encode($result->fetchAll());

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html ng-app="sharnMaid">
+    <head>
+        <title>Shar'n Maid | User Profile</title>
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/styles.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700' rel='stylesheet' type='text/css'>
+        <style>
+            h2{
+              font-size: 12px;
+            }
+            img{
+                width: 300px;
+            }
+            #update_div{
+                display:none;
+            }
+            .button{
+                background-color:#76459e;
+                color:#fff;
+            }
+        </style>
+    </head>
+    <body>
+        <img class="logo" src="../images/logo.png" alt="Shar'n Maids">
+        <div ng-controller="userControl">
+        <!-- display user profile -->
+            <div id='profile' ng-repeat="profile in profiles">
+                <img id="profileimg" src="../uploads/{{profile.profileimg}}"/>
+                <h2 id="username">USERNAME: {{profile.username}}</h2>
+                <h2 id="firstname">FIRST NAME: {{profile.firstname}}</h2>
+                <h2 id="lastname">LASTNAME: {{profile.lastname}}</h2>
+                <h2 id="email">EMAIL: {{profile.email}}</h2>
+                <h2 id="address">ADDRESS: {{profile.address}}</h2>
+                <h2 id="city">CITY: {{profile.city}}</h2>
+                <button id="update_profile">UPDATE PROFILE</button>
+                <a href="./favourites_all.html"><div class="button"> View My Favourites</div></a>
+            </div>
+
+            <!--update-->
+            <div id="update_div" class="form-group">
+                <div class="update_form">
+                    <h3>Upload a profile image</h3>
+                    <input id="ProfileImg" type="file" placeholder="YOUR PROFILE IMAGE"/>
+                    <button class="btn btn-default" id="upload">UPLOAD PROFILE IMAGE</button>
+                </div>
+
+                <form class="update_form" role="form">
+                    <input class="form-control" id='updated_username' type='text' placeholder='Username'/>
+                    <input class="form-control" id='updated_password' type='password' placeholder='Password'/>
+                    <input class="form-control" id='updated_firstname' type='text' placeholder='Fist Name'/>
+                    <input class="form-control" id='updated_lastname' type='text' placeholder='Last name'/>
+                    <input class="form-control" id='updated_email' type='email' placeholder='Email'/>
+                    <input class="form-control" id='updated_address' type='text' placeholder='Address'/>
+                    <input class="form-control" id='updated_city' type='text' placeholder='City'/>
+
+                    <button class="btn btn-default" id='update_userbut'>UPDATE USER</button>
+                </form>
+            </div>
+        </div>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
+        <script src='../js/angular.min.js'></script>
+        <script>
+            var thisApp = angular.module("sharnMaid", []);
+            
+            thisApp.controller("userControl", ["$scope", function($scope){
+                $scope.userProfileName = "Your User Profile:";
+                
+                $(document).ready(function(){
+                    console.log(sessionStorage.user_id)
+                    $.ajax({
+                        url:"../controller/user_c.php",
+                        dataType:"json",
+                        type:"POST",
+                        data:{
+                            method:"get_user_profile",
+                            user_id:sessionStorage.user_id,
+                        },
+                        success:function(resp){
+                            $scope.$apply(function(){
+                                $scope.profiles = resp;
+                            });
+
+                            document.getElementById("update_profile").onclick = function(){
+                                document.getElementById("update_div").style.display = "block";
+                                //update user profile
+                                document.getElementById("update_userbut").onclick = function(){
+                                    //e.preventDefault();
+                                    console.log("click");
+                                    $.ajax({
+                                        url:"../controller/user_c.php",
+                                        type:"POST",
+                                        dataType:"json",
+                                        data:{
+                                            method:"update_user",
+                                            user_id:sessionStorage.user_id,
+                                            username:document.getElementById("updated_username").value,
+                                            password:document.getElementById("updated_password").value,
+                                            firstname:document.getElementById("updated_firstname").value,
+                                            lastname:document.getElementById("updated_lastname").value,
+                                            email:document.getElementById("updated_email").value,
+                                            address:document.getElementById("updated_address").value,
+                                            city:document.getElementById("updated_city").value,
+                                        },
+                                        success:function(resp){
+                                            alert("YOUR PROFILE IS UPDATED!");
+                                            location.reload();
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                });
+            }]);
+        </script>
+
+    <!-- This is the script for uploading image -->
+        <script>
+
+            var myfiles = document.getElementById("ProfileImg");
+            var upload = document.getElementById("upload");
+
+            upload.onclick = function(e){
+                e.preventDefault();
+
+                console.log(sessionStorage.user_id);
+                var formData = new FormData();
+                
+                var allFiles = myfiles.files;
+                
+                for (var i = 0; i<allFiles.length; i++){
+                    var file = allFiles[i];
+                    
+                    if(file.type.match("image/*")){
+                        formData.append("images[]", file, file.name);
+                        formData.append ("userid", sessionStorage.user_id);
+                    } else {
+                        alert("IMAGE ONLY!!!");
+                        return false;
+                    }
+                }
+                
+                var xhr = new XMLHttpRequest();
+                
+                xhr.open("POST", "upload.php", true);
+                
+                xhr.onload = function(){
+                    if(xhr.status == 200){
+                        alert("Loaded upload.php successfully");
+                    }
+                    if(xhr.status == 404){
+                        alert("Page Not Found!");
+                    }
+                }
+                
+                xhr.send(formData);
+                
+                console.log(myfiles.files);
+                console.log(myfiles.files[0].name);
+
+                $(document).ready(function(){
+                  console.log(sessionStorage.user_id+"/"+myfiles.files[0].name);
+                    $.ajax({
+                        url:"../controller/user_c.php",
+                        type:"POST",
+                        dataType:"JSON",
+                        data:{
+                            method:"update_profile_img",
+                            user_id:sessionStorage.user_id,
+                            img_url:sessionStorage.user_id+"/"+myfiles.files[0].name
+                        },
+                        success:function(resp){
+                            console.log("uploaded");
+                        }
+                    });
+                });
+
+            }
+          
+          
+        </script>
+    </body>
+</html>
