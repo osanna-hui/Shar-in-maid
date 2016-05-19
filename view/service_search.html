@@ -31,6 +31,7 @@
             </div>
 
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
+                <img class="servimg" src="../uploads/{{service.serv_img}}"/>
                 <h2 class="typetitle">Type: {{service.serv_type}}</h2>
                 <h3 class="typetitle" >Price: ${{service.serv_price}}</h3>
                 <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
@@ -39,6 +40,7 @@
             <div id="info">
                 <div id="close">X</div>
                 <div id="service_info">
+                    <img id="servimg" class="servimg"/>
                     <h3 class="info-labels">TYPE:</h3>
                     <h2 id="infotitle"></h2>
                     <h3 class="info-labels">DESCRIPTION:</h3>
@@ -103,6 +105,7 @@
                                     console.log(resp1);
                                     document.getElementById("info").style.display="block";
 
+                                    document.getElementById("servimg").src = "../uploads/"+resp1[0].serv_img;
                                     document.getElementById("infotitle").innerHTML = resp1[0].serv_type;
                                     document.getElementById("infodesc").innerHTML = resp1[0].serv_desc;
                                     document.getElementById("infoarea").innerHTML = resp1[0].serv_area;

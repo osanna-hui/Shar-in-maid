@@ -22,7 +22,9 @@ if($_POST['method'] == "search_services"){
 if($_POST['method'] == "update_service"){
     update_service();
 }
-
+if($_POST['method'] == "update_service_img"){
+    update_service_img();
+}
 if($_POST['method'] == "delete_service"){
     delete_service();
 }

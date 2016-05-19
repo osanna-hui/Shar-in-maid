@@ -12,6 +12,7 @@
         <div id="display" ng-controller='serviceControl'>
             <h1 id="favtitle">{{serviceName}}</h1>
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
+                <img class="servimg" src="../uploads/{{service.serv_img}}"/>
                 <h2 class="typetitle">Type: {{service.serv_type}}</h2>
                 <p>Description: {{service.serv_desc}}</p>
                 <h3 class="typetitle">Price: ${{service.serv_price}}</h3>

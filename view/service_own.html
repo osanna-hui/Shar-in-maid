@@ -29,6 +29,7 @@
         <div id="display" ng-controller='serviceControl'>
             <h1 id="postbytitle">{{serviceName}}</h1>
             <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
+                <img class="servimg" src="../uploads/{{service.serv_img}}"/>
                 <h2 id="title">Type: {{service.serv_type}}</h2>
                 <p>Description: {{service.serv_desc}}</p>
                 <h2 id="title">Price: ${{service.serv_price}}</h2>
@@ -40,6 +41,11 @@
             <h2 id="no_post"></h2>
             <div id="EditDiv">
                 <div id="close">X</div>
+                <div class="update_form">
+                    <h3>Upload a new service image</h3>
+                    <input id="ServiceImg" type="file" placeholder="YOUR SERVICE IMAGE"/>
+                    <button class="btn btn-default" id="upload">UPLOAD NEW SERVICE IMAGE</button>
+                </div>
                 <label for="new_type">New Service Type:</label><br/>
                 <select id='new_type' placeholder='NEW SERVICE TYPE' required autofocus>
                     <option value="STUDIO">STUDIO</option>
@@ -114,6 +120,63 @@
                         document.getElementById("close").onclick = function(){
                             document.getElementById("EditDiv").style.display = "none";
                         }
+
+                        var myfiles = document.getElementById("ServiceImg");
+                        var submit = document.getElementById("submit");
+
+                        upload.onclick = function(e){
+                            e.preventDefault();
+
+                            console.log(sessionStorage.user_id);
+                            var formData = new FormData();
+                            
+                            var allFiles = myfiles.files;
+                            
+                            for (var i = 0; i<allFiles.length; i++){
+                                var file = allFiles[i];
+                                
+                                if(file.type.match("image/*")){
+                                    formData.append("images[]", file, file.name);
+                                    formData.append ("userid", sessionStorage.user_id);
+                                } else {
+                                    alert("IMAGE ONLY!!!");
+                                    return false;
+                                }
+                            }
+                            
+                            var xhr = new XMLHttpRequest();
+                            
+                            xhr.open("POST", "upload.php", true);
+                            
+                            xhr.onload = function(){
+                                if(xhr.status == 200){
+                                    alert("Loaded upload.php successfully");
+                                }
+                                if(xhr.status == 404){
+                                    alert("Page Not Found!");
+                                }
+                            }
+                            
+                            xhr.send(formData);
+                            
+                            console.log(myfiles.files);
+                            console.log(myfiles.files[0].name);
+                            $.ajax({
+                                url:"../controller/service_c.php",
+                                type:"POST",
+                                dataType:"JSON",
+                                data:{
+                                    method:"update_service_img",
+                                    serv_id:serv_id,
+                                    img_url:sessionStorage.user_id+"/"+myfiles.files[0].name
+                                },
+                                success:function(resp3){
+                                    console.log("uploaded");
+                                }
+                            });
+                        }
+
+
 
                         document.getElementById("update_edits").onclick = function(){
                             
