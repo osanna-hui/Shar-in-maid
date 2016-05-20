@@ -131,6 +131,10 @@ ctrl.controller("allServiceControl", ["$scope", function($scope){
                                 success:function(resp3){
                                     console.log(resp3);
                                     alert('Now in your favourite');
+
+                                },
+                                error:function(error){
+                                    console.log(error);
                                 }
                             });
                         }
@@ -603,6 +607,11 @@ ctrl.controller("searchServiceControl", ["$scope", function($scope){
                                     },
                                     success:function(resp3){
                                         console.log(resp3);
+                                        alert('Now in your favourite');
+
+                                    },
+                                    error:function(error){
+                                        console.log(error);
                                     }
                                 });
                             }
