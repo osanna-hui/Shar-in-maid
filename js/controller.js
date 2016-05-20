@@ -631,3 +631,98 @@ ctrl.controller("searchServiceControl", ["$scope", function($scope){
         });
     }
 }]);
+
+///////////////////      SEARCH SERVICE      //////////////////
+
+ctrl.controller("favouritesControl", ["$scope", function($scope){
+    $scope.serviceName = "Your Favourites: ";
+            
+    console.log(sessionStorage.user_id);
+    $.ajax({
+        url:"controller/favourite_c.php",
+        dataType:"json",
+        type:"POST",
+        data:{
+            method:"get_user_favourite",
+            user_id:sessionStorage.user_id,
+        },
+        success:function(resp){
+            console.log(resp);
+
+            if (resp.length == 0){
+                document.getElementById("no_fav").innerHTML = "Looks like you don't have any favourites yet!";
+            }
+            $scope.$apply(function(){
+                $scope.services = resp;
+            });
+
+            $scope.comments = function(servId){
+                $.ajax({
+                    url:"controller/comment_c.php",
+                    dataType:"JSON",
+                    type:"POST",
+                    data:{
+                        method:"get_comment_single_serv",
+                        serv_id:servId
+                    },
+                    success:function(resp2){
+                        //console.log(resp2);
+
+                        var div = document.createElement("div");
+                        div.id = "CommentsDiv";
+                        document.body.appendChild(div);
+
+                        var close = document.createElement("div");
+                        close.innerHTML = "X";
+                        close.id = "close";
+                        div.appendChild(close);
+
+                        var h2 = document.createElement("h2");
+                        h2.innerHTML = "Comments:";
+                        h2.id = "commentstitle";
+                        div.appendChild(h2);
+
+                        if (resp2.length == 0){
+                            var comment = document.createElement("h4");
+                            comment.innerHTML = "There's no comment for this service";
+                            div.appendChild(comment);
+                        }
+                        
+                        for (i=0;i<resp2.length;i++){
+
+                            var comment = document.createElement("h4");
+                            comment.innerHTML = resp2[i].text;
+                            div.appendChild(comment);
+                        }
+                        
+                         close.onclick = function(){
+                            div.removeChild(h2);
+                            div.removeChild(comment);
+                            document.body.removeChild(div);
+                        }   
+                    }
+                });
+            }
+
+            $scope.delete = function(servId){
+                $.ajax({
+                    url:"controller/favourite_c.php",
+                    type:"POST",
+                    dataType:"JSON",
+                    data:{
+                        method:"delete_favourite",
+                        serv_id:servId,
+                        user_id:sessionStorage.user_id,
+                    },
+                    success:function(resp1){
+                        location.reload();
+                        console.log("deleted favourite");
+
+                    }
+                });
+            }
+        }
+
+
+    });
+}]);

@@ -27,8 +27,13 @@
                 /*alert("USER LOGGED IN!");*/
                 console.log(resp[0]);
                 sessionStorage.user_id = resp[0].user_id;
-                window.location.assign("service_all.html");
+                window.location = "service_all";
             } 
         });
+    }
+    document.getElementById("logout").onclick = function(){
+        sessionStorage.clear();
+        alert("logged out, session cleared");
+        location.reload();
     }
 </script>

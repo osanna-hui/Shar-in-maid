@@ -54,7 +54,8 @@ myApp.config([
 		).when(
 			"/favourites_all",
 			{
-				templateUrl: "view/favourites_all.html"
+				templateUrl: "view/favourites_all.html",
+				controller:"favouritesControl"
 			}
 		)
 	}
