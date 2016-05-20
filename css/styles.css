@@ -309,6 +309,10 @@ input, select, button{
     color:#a564d3;
 
 }
+.servimg{
+    width:200px;
+    height:auto;
+}
 #viewuser{
    margin-left:;
     width: 55%;

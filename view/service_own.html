@@ -35,7 +35,7 @@
                 <h2 id="title">Price: ${{service.serv_price}}</h2>
                 <p>Area: {{service.serv_area}}</p>
                 <button class="edit" id="{{service.serv_id}}">Edit This Post</button>
-                <button class="edit" id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete This Post</button>
+                <button class="delete" id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete This Post</button>
                 
             </div>
             <h2 id="no_post"></h2>
@@ -62,7 +62,7 @@
                 <input id="new_price" placeholder="NEW PRICE"/><br/>
                 <label for="new_area">New Area:</label><br/>
                 <input id="new_area" placeholder="NEW AREA"/><br/>
-                <button class="edit" id="update_edits">CONFIRM EDITS</button>
+                <button class="comfirm" id="update_edits">CONFIRM EDITS</button>
             </div>
         </div>
     </body>
@@ -124,7 +124,7 @@
                         var myfiles = document.getElementById("ServiceImg");
                         var submit = document.getElementById("submit");
 
-                        upload.onclick = function(e){
+                        document.getElementById("upload").onclick = function(e){
                             e.preventDefault();
 
                             console.log(sessionStorage.user_id);
