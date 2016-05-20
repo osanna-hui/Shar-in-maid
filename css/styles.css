@@ -181,13 +181,51 @@ input, select, button{
   margin-right: auto;
   margin-left: auto;
   padding: 25px;
+  margin-bottom: 10px;
 
   }
 #profileh2{
   font-size: 15px;
 
 }
+#update_profile{
+   margin-left:;
+    width: 55%;
+    height: 40px;
+    color: #76459e;
+    background-color: white;
+    font-size: 16px;
+    font-weight: ; 
+}
+#update_profile:hover {
+    width: 55%;
+    color: white;
+    background-color: #a564d3;
+}
+.uploadtitle{
+    margin-left: 10px;
+    padding-top: 10px;
+}
 
+/* // search page // */
+
+#service_type{
+    width: 300px;
+}
+#search_type{
+   margin-left:;
+    width: 20%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+#search_type:hover {
+    width: 20%;
+    color: white;
+    background-color: #a564d3;
+}
 /* // user service page // */
 
 #EditDiv{
@@ -270,6 +308,62 @@ input, select, button{
     cursor:pointer;
     color:#a564d3;
 
+}
+#viewuser{
+   margin-left:;
+    width: 55%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+#viewuser:hover {
+    width: 55%;
+    color: white;
+    background-color: #a564d3;
+}
+#fav{
+   margin-left:;
+    width: 55%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+#fav:hover {
+    width: 55%;
+    color: white;
+    background-color: #a564d3;
+}
+#viewuserposts{
+   margin-left:;
+    width: 70%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+#viewuserposts:hover {
+    width: 70%;
+    color: white;
+    background-color: #a564d3;
+}
+#backtopost{
+   margin-left:;
+    width: 70%;
+    height: 40px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ; 
+}
+#backtopost:hover {
+    width: 70%;
+    color: white;
+    background-color: #a564d3;
 }
 #info{
     position:fixed;
