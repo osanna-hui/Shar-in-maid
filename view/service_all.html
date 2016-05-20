@@ -27,7 +27,7 @@
                 <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
             </div>
 
-            <div id="info">
+            <div id="info" style="height: none; position: absolute">
                 <div id="close">X</div>
                 <div id="service_info">
                     <img id="servimg" class="servimg"/>
@@ -47,7 +47,12 @@
 
                 <div id="comments">
                     <h3 class="info-labels">COMMENTS:</h3>
+                    <div id="display_comments"></div>
                     <h5 id="no-comments">Looks like there are no comments for this service</h5>
+                    <div class="form-group">
+                        <input class="form-control" id="CommentInput" placeholder="Comment..."/>
+                        <button class="btn btn-default comm_sub_but" id='CommentSubmit'>SUBMIT COMMENT</button>
+                    </div>
                 </div>
                 <div id="user_info">
                     <img id="profileimg"/>
@@ -71,7 +76,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script>
         
-    
         var thisApp = angular.module("sharnMaid", []);
         
         thisApp.controller("serviceControl", ["$scope", function($scope){
@@ -159,6 +163,28 @@
                                     });
                                 }
                                 
+                                $("#CommentSubmit").click(function(e){
+                                    e.preventDefault();
+                                    console.log(id);
+                                    $.ajax({
+                                        url:"../controller/comment_c.php",
+                                        dataType:"json",
+                                        type:"POST",
+                                        data:{
+                                            method:"insert_comment",
+                                            text:document.getElementById("CommentInput").value,
+                                            serv_id:id,
+                                            user_id:sessionStorage.user_id
+                                        },
+                                        success:function(resp4){
+                                            console.log(resp4);
+                                            alert("Comment submitted");
+                                        }
+                                        /*error:function(error){
+                                            console.log(error);
+                                        }*/
+                                    });
+                                });                                
                                 
                                 $.ajax({
                                     url:"../controller/comment_c.php",
@@ -178,11 +204,17 @@
                                         for (i=0;i<resp2.length;i++){
                                             var comment = document.createElement("h4");
                                             comment.innerHTML = resp2[i].text;
-                                            document.getElementById("comments").appendChild(comment);
+                                            document.getElementById("display_comments").appendChild(comment);
                                         }
                                         
                                         document.getElementById("close").onclick = function(){
                                             document.getElementById("info").style.display="none";
+                                            
+                                            //to remove appended comments from the div
+                                            var node = document.getElementById("display_comments");
+                                            while (node.hasChildNodes()) {
+                                                node.removeChild(node.firstChild);
+                                            }
                                         }   
                                     }
                                 });
