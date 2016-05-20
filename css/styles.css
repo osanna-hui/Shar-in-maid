@@ -43,13 +43,40 @@ input, select, button{
     padding-bottom: 30px;
 }
 /* // Nav // */
-nav ul {
+#nav{
+    margin-bottom: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
     list-style: none;
 }
-nav ul li {
-    text-align: right;
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #76459e;
+
+}
+nav li{
+    border-right: 1px solid #bbb;
+    margin-left: auto;
+    margin-right:auto;
+    display: inline;
+}
+nav li a{
+    display: inline-block;
     margin:0 10px;
-    color:#76459e;
+    color:white;
+    text-align: center;
+    text-decoration: none;
+    width: 15%;
+    padding: 5px;
+    padding-right:20px;
+
+}
+nav li a:hover{
+    width:15%;
 }
 
 
@@ -60,6 +87,7 @@ nav ul li {
     margin: auto;
     width: 350px;
     background-color: white;
+    padding: 10px;
 }
 
 .signup_form .form-group {
@@ -154,7 +182,23 @@ nav ul li {
     padding-bottom: 22px;
     margin-bottom: 0px;
 }
+#signupbut {
+    margin: 0 auto;
+    width: 350px;
+    height: 80px;
+    color: white;
+    background-color: #76459e;
+    font-size: 16px;
+    font-weight: ;
+    text-align: center;
+    padding-top: 25px;
+}
 
+#signupbut:hover {
+     width: 350px;
+    color: white;
+    background-color: #a564d3;
+}
 
 /* // update Form // */
 
@@ -226,7 +270,7 @@ nav ul li {
 }
 
 .logout{
-    width:100%;
+    width:350px;
     height:50px;
     background-color:#76459e;
     color:#fff;
@@ -234,9 +278,13 @@ nav ul li {
     padding:10px;
     text-align: center;
     font-size:18px;
+    margin: 0 auto;
+    margin-bottom: 10px;
 }
 .logout:hover{
     cursor:pointer;
+    color: white;
+    background-color: #a564d3;
 }
 /* // search page // */
 
