@@ -38,8 +38,11 @@ function update_comment(){
     //update comment for user
     global $db;
     
-    $query = "UPDATE comments (text, user_id, serv_id) SET comments ('".$_POST['text']."', '".$_POST['user_id']."', ".$_POST['serv_id'].")";
+    /*$query = "UPDATE comments (text, user_id, serv_id) SET comments ('".$_POST['text']."', '".$_POST['user_id']."', ".$_POST['serv_id'].")";*/
+    $query = "UPDATE comments SET text = '".$_POST['text']."' WHERE comm_id = '".$_POST['comm_id']."'";
     $result = $db->query($query);
+    
+    echo json_encode($result->fetchAll());
 }
 
 function delete_comment(){

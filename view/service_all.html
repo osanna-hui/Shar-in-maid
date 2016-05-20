@@ -1,242 +1,53 @@
-<!DOCTYPE html>
-<html ng-app="sharnMaid">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Shar'n Maid | Services</title>
-        <link href="../css/bootstrap.css" rel="stylesheet">
-        <link href="../css/styles.css" rel="stylesheet">
-        <style>
-            #info, #no-comments, #user_info{
-                display:none;
-                overflow: scroll;
-            }
-            #profileimg{
-                width:200px;
-                height:auto;
-            }
-            .servimg{
-                width:200px;
-                height:auto;
-            }
-        </style>
-    </head>
-    
-    <body>
-        <img class="logo" src="../images/logo.png" alt="Shar'n Maids">
-        <div id="display" ng-controller='serviceControl'>
-            <h1 id="allsertitle">{{serviceName}}</h1>
-            <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
-                <img class="servimg" src="../uploads/{{service.serv_img}}"/>
-                <h2 class="typetitle">Type: {{service.serv_type}}</h2>
-                <h3 class="typetitle" >Price: ${{service.serv_price}}</h3>
-                <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
+<div id="display" ng-controller='allServiceControl'>
+    <h1 id="allsertitle">{{serviceName}}</h1>
+    <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
+        <img class="servimg" src="uploads/{{service.serv_img}}"/>
+        <h2 class="typetitle">Type: {{service.serv_type}}</h2>
+        <h3 class="typetitle" >Price: ${{service.serv_price}}</h3>
+        <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
+    </div>
+
+    <!-- pop up div to show service description -->
+    <div id="info" style="height: none; position: fixed">
+        <div id="close">X</div>
+        <div id="service_info">
+            <img id="servimg" class="servimg"/>
+            <h3 class="info-labels">TYPE:</h3>
+            <h2 id="infotitle"></h2>
+            <h3 class="info-labels">DESCRIPTION:</h3>
+            <h4 id="infodesc"></h4>
+            <h3 class="info-labels">AREA:</h3>
+            <h4 id="infoarea"></h4>
+            <h3 class="info-labels">PRICE:</h3>
+            <h4 id="infoprice"></h4>
+            <h3 class="info-labels">POSTED BY:</h3>
+            <h4 id="infouser"></h4>
+            <button id="viewuser">VIEW PROFILE</button>
+            <button id="fav">ADD TO FAVOURITES</button>
+        </div>
+
+        <div id="comments">
+            <h3 class="info-labels">COMMENTS:</h3>
+            <div id="display_comments"></div>
+            <h5 id="no-comments">Looks like there are no comments for this service</h5>
+            <div class="form-group">
+                <input class="form-control" id="CommentInput" placeholder="Comment..."/>
+                <button class="btn btn-default comm_sub_but" id='CommentSubmit'>SUBMIT COMMENT</button>
             </div>
-
-            <div id="info" style="height: none; position: fixed">
-                <div id="close">X</div>
-                <div id="service_info">
-                    <img id="servimg" class="servimg"/>
-                    <h3 class="info-labels">TYPE:</h3>
-                    <h2 id="infotitle"></h2>
-                    <h3 class="info-labels">DESCRIPTION:</h3>
-                    <h4 id="infodesc"></h4>
-                    <h3 class="info-labels">AREA:</h3>
-                    <h4 id="infoarea"></h4>
-                    <h3 class="info-labels">PRICE:</h3>
-                    <h4 id="infoprice"></h4>
-                    <h3 class="info-labels">POSTED BY:</h3>
-                    <h4 id="infouser"></h4>
-                    <button id="viewuser">VIEW PROFILE</button>
-                    <button id="fav">ADD TO FAVOURITES</button>
-                </div>
-
-                <div id="comments">
-                    <h3 class="info-labels">COMMENTS:</h3>
-                    <div id="display_comments"></div>
-                    <h5 id="no-comments">Looks like there are no comments for this service</h5>
-                    <div class="form-group">
-                        <input class="form-control" id="CommentInput" placeholder="Comment..."/>
-                        <button class="btn btn-default comm_sub_but" id='CommentSubmit'>SUBMIT COMMENT</button>
-                    </div>
-                </div>
-                <div id="user_info">
-                    <img id="profileimg"/>
-                    <h3 class="info-labels">USERNAME:</h3>
-                    <h4 id="username"></h4>
-                    <h3 class="info-labels">FIRST NAME:</h3>
-                    <h4 id="firstname"></h4>
-                    <h3 class="info-labels">LAST NAME:</h3>
-                    <h4 id="lastname"></h4>
-                    <h3 class="info-labels">EMAIL:</h3>
-                    <h4 id="email"></h4>
-                    <button id="viewuserposts">VIEW USER'S OTHER POSTS</button>
-                    <button id="backtopost">GO BACK TO POST</button>
-
-                </div>
-            </div>
+        </div>
+        <div id="user_info">
+            <img id="profileimg"/>
+            <h3 class="info-labels">USERNAME:</h3>
+            <h4 id="username"></h4>
+            <h3 class="info-labels">FIRST NAME:</h3>
+            <h4 id="firstname"></h4>
+            <h3 class="info-labels">LAST NAME:</h3>
+            <h4 id="lastname"></h4>
+            <h3 class="info-labels">EMAIL:</h3>
+            <h4 id="email"></h4>
+            <button id="viewuserposts">VIEW USER'S OTHER POSTS</button>
+            <button id="backtopost">GO BACK TO POST</button>
 
         </div>
-    </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script>
-        
-        var thisApp = angular.module("sharnMaid", []);
-        
-        thisApp.controller("serviceControl", ["$scope", function($scope){
-            $scope.serviceName = "Services:";
-            
-            $.ajax({
-                url:"../controller/service_c.php",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    method:"get_service",
-                },
-                success:function(resp){
-                    console.log(resp);
-                    $scope.$apply(function(){
-                        $scope.services = resp;
-                    });
-
-                    $(".serv_title").click(function(){
-                        var id = this.id;
-                        console.log(id);
-                        $.ajax({
-                           url:"../controller/service_c.php",
-                            type:"POST",
-                            dataType:"JSON",
-                            data:{
-                                method:"view_one_service",
-                                serv_id:id,
-                            },
-                            success:function(resp1){
-                                console.log(resp1);
-                                document.getElementById("info").style.display="block";
-                                document.getElementById("servimg").src = "../uploads/"+resp1[0].serv_img;
-                                document.getElementById("infotitle").innerHTML = resp1[0].serv_type;
-                                document.getElementById("infodesc").innerHTML = resp1[0].serv_desc;
-                                document.getElementById("infoarea").innerHTML = resp1[0].serv_area;
-                                document.getElementById("infoprice").innerHTML = resp1[0].serv_price;
-                                document.getElementById("infouser").innerHTML = resp1[0].username;
-
-
-                                document.getElementById("viewuser").onclick = function(){
-                                    document.getElementById("service_info").style.display="none";
-                                    document.getElementById("comments").style.display="none";
-                                    document.getElementById("user_info").style.display = "block";
-
-                                    document.getElementById("username").innerHTML =resp1[0].username;
-                                    document.getElementById("firstname").innerHTML =resp1[0].firstname;
-                                    document.getElementById("lastname").innerHTML =resp1[0].lastname;
-                                    document.getElementById("email").innerHTML =resp1[0].email;
-
-                                    if (resp1[0].profileimg == ''){
-                                        document.getElementById("profileimg").src = resp1[0].profileimg;
-                                    } else {
-                                        document.getElementById("profileimg").src = "../images/sim_jumbotron_cleaning_lady_back.jpg";
-                                    }
-                                    
-                                    document.getElementById("viewuserposts").onclick = function(){
-                                        sessionStorage.view_userID = resp1[0].user_id;
-                                        window.location = "./service_other_user.html";
-                                    }
-
-                                    document.getElementById("backtopost").onclick = function(){
-                                        document.getElementById("service_info").style.display="block";
-                                        document.getElementById("comments").style.display="block";
-                                        document.getElementById("user_info").style.display = "none";
-                                    }
-
-                                }
-
-                                document.getElementById("fav").onclick =function(){
-                                    console.log(sessionStorage.user_id);
-                                    console.log(id);
-                                    $.ajax({
-                                        url:"../controller/favourite_c.php",
-                                        dataType:"JSON",
-                                        type:"POST",
-                                        data:{
-                                            method:"insert_favourite",
-                                            serv_id:id,
-                                            user_id:sessionStorage.user_id,
-                                        },
-                                        success:function(resp3){
-                                            console.log(resp3);
-                                            alert('Now in your favourite');
-                                        }
-                                    });
-                                }
-                                
-                                $("#CommentSubmit").click(function(){
-                                    //e.preventDefault();
-                                    console.log(id);
-                                    $.ajax({
-                                        url:"../controller/comment_c.php",
-                                        dataType:"json",
-                                        type:"POST",
-                                        data:{
-                                            method:"insert_comment",
-                                            text:document.getElementById("CommentInput").value,
-                                            serv_id:id,
-                                            user_id:sessionStorage.user_id
-                                        },
-                                        success:function(resp4){
-                                            //console.log(resp4);
-                                            alert("Comment submitted");
-                                        }/*,
-                                        error:function(error){
-                                            console.log(error);
-                                        }*/
-                                    });
-                                });                                
-                                
-                                $.ajax({
-                                    url:"../controller/comment_c.php",
-                                    dataType:"JSON",
-                                    type:"POST",
-                                    data:{
-                                        method:"get_comment_single_serv",
-                                        serv_id:id
-                                    },
-                                    success:function(resp2){
-                                        console.log(resp2);
-
-                                        if (resp2.length == 0){
-                                            document.getElementById("no-comments").style.display = "block";
-                                        }
-                                        
-                                        for (i=0;i<resp2.length;i++){
-                                            var comment = document.createElement("h4");
-                                            comment.innerHTML = resp2[i].text;
-                                            document.getElementById("display_comments").appendChild(comment);
-                                        }
-                                        
-                                        document.getElementById("close").onclick = function(){
-                                            document.getElementById("info").style.display="none";
-                                            
-                                            //to remove appended comments from the div
-                                            var node = document.getElementById("display_comments");
-                                            while (node.hasChildNodes()) {
-                                                node.removeChild(node.firstChild);
-                                            }
-                                        }   
-                                    }
-                                });
-
-
-                            }
-                        });
-
-                    });
-                }
-            });
-        }]);
-
-          
-             
-        
-    </script>
-
-</html>
+    </div>
+</div>

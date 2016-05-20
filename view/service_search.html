@@ -1,179 +1,45 @@
-<!DOCTYPE html>
-<html ng-app="sharnMaid">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Shar'n Maid | Services</title>
-        <link href="../css/bootstrap.css" rel="stylesheet">
-        <link href="../css/styles.css" rel="stylesheet">
-        <style>
-            #info, #no-comments{
-                display:none;
-            }
+<div id="display" ng-controller='searchServiceControl'>
+    <h1 id="allsertitle">{{serviceName}}</h1>
+    <div id="search_div">
+        <h2 class="search_label">Search by Types of Service</h2>
+        <select id='service_type' placeholder='SERVICE TYPE' required autofocus>
+            <option value="STUDIO">STUDIO</option>
+            <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
+            <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
+            <option value="ONE BEDROOM TOWN HOUSE">ONE BEDROOM TOWN HOUSE</option>
+            <option value="TWO OR MORE BEDROOM TOWN HOUSE">TWO OR MORE BEDROOM TOWN HOUSE</option>
+            <option value="DETACHED HOME">DETACHED HOME</option>
+        </select>
+        <button id="search_type">GO!</button>
+    </div>
 
-        </style>
-    </head>
-    
-    <body>
-        <img class="logo" src="../images/logo.png" alt="Shar'n Maids">
-        <div id="display" ng-controller='serviceControl'>
-            <h1 id="allsertitle">{{serviceName}}</h1>
-            <div id="search_div">
-                <h2 class="search_label">Search by Types of Service</h2>
-                <select id='service_type' placeholder='SERVICE TYPE' required autofocus>
-                    <option value="STUDIO">STUDIO</option>
-                    <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
-                    <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
-                    <option value="ONE BEDROOM TOWN HOUSE">ONE BEDROOM TOWN HOUSE</option>
-                    <option value="TWO OR MORE BEDROOM TOWN HOUSE">TWO OR MORE BEDROOM TOWN HOUSE</option>
-                    <option value="DETACHED HOME">DETACHED HOME</option>
-                </select>
-                <button id="search_type">GO!</button>
-            </div>
+    <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
+        <img class="servimg" src="uploads/{{service.serv_img}}"/>
+        <h2 class="typetitle">Type: {{service.serv_type}}</h2>
+        <h3 class="typetitle" >Price: ${{service.serv_price}}</h3>
+        <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
+    </div>
 
-            <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
-                <img class="servimg" src="../uploads/{{service.serv_img}}"/>
-                <h2 class="typetitle">Type: {{service.serv_type}}</h2>
-                <h3 class="typetitle" >Price: ${{service.serv_price}}</h3>
-                <h3 class="serv_title" id="{{service.serv_id}}">View This Post --></h3>
-            </div>
-
-            <div id="info">
-                <div id="close">X</div>
-                <div id="service_info">
-                    <img id="servimg" class="servimg"/>
-                    <h3 class="info-labels">TYPE:</h3>
-                    <h2 id="infotitle"></h2>
-                    <h3 class="info-labels">DESCRIPTION:</h3>
-                    <h4 id="infodesc"></h4>
-                    <h3 class="info-labels">AREA:</h3>
-                    <h4 id="infoarea"></h4>
-                    <h3 class="info-labels">PRICE:</h3>
-                    <h4 id="infoprice"></h4>
-                    <h3 class="info-labels">POSTED BY:</h3>
-                    <h4 id="infouser"></h4>
-                    <button id="fav">ADD TO FAVOURITES</button>
-                </div>
-
-                <div id="comments">
-                    <h3 class="info-labels">COMMENTS:</h3>
-                    <h5 id="no-comments">Looks like there are no comments for this service</h5>
-                </div>
-                
-
+    <div id="info">
+        <div id="close">X</div>
+        <div id="service_info">
+            <img id="servimg" class="servimg"/>
+            <h3 class="info-labels">TYPE:</h3>
+            <h2 id="infotitle"></h2>
+            <h3 class="info-labels">DESCRIPTION:</h3>
+            <h4 id="infodesc"></h4>
+            <h3 class="info-labels">AREA:</h3>
+            <h4 id="infoarea"></h4>
+            <h3 class="info-labels">PRICE:</h3>
+            <h4 id="infoprice"></h4>
+            <h3 class="info-labels">POSTED BY:</h3>
+            <h4 id="infouser"></h4>
+            <button id="fav">ADD TO FAVOURITES</button>
         </div>
-    </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script>
-        
-    
-        var thisApp = angular.module("sharnMaid", []);
-        
-        thisApp.controller("serviceControl", ["$scope", function($scope){
-            $scope.serviceName = "Search for Services:";
-            
-            document.getElementById("search_type").onclick = function(){
-                console.log("search: " + document.getElementById("service_type").value);
-                $.ajax({
-                    url:"../controller/service_c.php",
-                    dataType:"json",
-                    type:"POST",
-                    data:{
-                        method:"search_services",
-                        type:document.getElementById("service_type").value,
-                    },
-                    success:function(resp){
-                        console.log(resp);
 
-                        $scope.$apply(function(){
-                            $scope.services = resp;
-                        });
-
-
-                        $(".serv_title").click(function(){
-                            var id = this.id;
-                            console.log(id);
-                            $.ajax({
-                                url:"../controller/service_c.php",
-                                type:"POST",
-                                dataType:"JSON",
-                                data:{
-                                    method:"view_one_service",
-                                    serv_id:id,
-                                },
-                                success:function(resp1){
-                                    console.log(resp1);
-                                    document.getElementById("info").style.display="block";
-
-                                    document.getElementById("servimg").src = "../uploads/"+resp1[0].serv_img;
-                                    document.getElementById("infotitle").innerHTML = resp1[0].serv_type;
-                                    document.getElementById("infodesc").innerHTML = resp1[0].serv_desc;
-                                    document.getElementById("infoarea").innerHTML = resp1[0].serv_area;
-                                    document.getElementById("infoprice").innerHTML = resp1[0].serv_price;
-                                    document.getElementById("infouser").innerHTML = resp1[0].username;
-
-                                    document.getElementById("fav").onclick =function(){
-                                        console.log(sessionStorage.user_id);
-                                        console.log(id);
-                                        $.ajax({
-                                            url:"../controller/favourite_c.php",
-                                            dataType:"JSON",
-                                            type:"POST",
-                                            data:{
-                                                method:"insert_favourite",
-                                                serv_id:id,
-                                                user_id:sessionStorage.user_id,
-                                            },
-                                            success:function(resp3){
-                                                console.log(resp3);
-                                            }
-                                        });
-                                    }
-                                    
-                                    
-                                    $.ajax({
-                                        url:"../controller/comment_c.php",
-                                        dataType:"JSON",
-                                        type:"POST",
-                                        data:{
-                                            method:"get_comment_single_serv",
-                                            serv_id:id
-                                        },
-                                        success:function(resp2){
-                                            console.log(resp2);
-
-                                            if (resp2.length == 0){
-                                                document.getElementById("no-comments").style.display = "block";
-                                            }
-                                            
-                                            for (i=0;i<resp2.length;i++){
-                                                var comment = document.createElement("h4");
-                                                comment.innerHTML = resp2[i].text;
-                                                document.getElementById("comments").appendChild(comment);
-                                            }
-                                            
-                                            document.getElementById("close").onclick = function(){
-                                                document.getElementById("info").style.display="none";
-                                            }   
-                                        }
-                                    });
-
-
-                                }
-                            });
-
-                        });
-
-                    },
-                    error:function(error){
-                        console.log(error);
-                    }
-                });
-            }
-        }]);
-          
-             
-        
-    </script>
-
-</html>
+        <div id="comments">
+            <h3 class="info-labels">COMMENTS:</h3>
+            <h5 id="no-comments">Looks like there are no comments for this service</h5>
+        </div>
+    </div>
+</div>

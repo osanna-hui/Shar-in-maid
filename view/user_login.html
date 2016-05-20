@@ -1,56 +1,34 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Shar'n Maid | Profile</title>
-        <link href="../css/bootstrap.css" rel="stylesheet">
-        <link href="../css/styles.css" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700' rel='stylesheet' type='text/css'>
-        <style>
-            h2{
-                font-size: 12px;
-            }
-        </style>
-    </head>
-    <body>
-        <img class="logo" src="../images/logo.png" alt="Shar'n Maids">
-        <form class="login_form" role="form">
-            <div class="form-group">
-                <input class="form-control" id='username' type='text' placeholder='Username'/>
-                <input class="form-control" id='password' type='password' placeholder='Password'/>
-                <button class="btn btn-default" id='loginbut'>Login</button>
-            <hr/>
-            </div>
-        </form>
-    </body>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
-    <script src='../js/angular.min.js'></script>
-    <script>
-        $(document).ready(function(){
-            
-            //var user_id = -1;
-            var editDiv = null;
-            //USER LOGIN
-            document.getElementById("loginbut").onclick = function(e){
-                e.preventDefault();
-                console.log(document.getElementById("username").value);
+<div class="form-group">
+    <form class="login_form" role="form">
+        <input class="form-control" id='username' type='text' placeholder='Username'/>
+        <input class="form-control" id='password' type='password' placeholder='Password'/>
+        <button class="btn btn-default" id='loginbut'>Login</button>
+    </form>
+    <p>--------- or ---------</p>
+    <a href="user_signup"><div class="btn">Sign Up!</div></a>
+</div>
 
-                $.ajax({
-                    url:"../controller/user_c.php",
-                    dataType:"json",
-                    type:"POST",
-                    data:{
-                        method:"user_logged_in",
-                        username:document.getElementById("username").value,
-                        password:document.getElementById("password").value,
-                    },
-                    success:function(resp){
-                        alert("USER LOGGED IN!");
-                        console.log(resp[0]);
-                        sessionStorage.user_id = resp[0].user_id;
-                        window.location.assign("./user_profile.html");
-                    } 
-                });
-            }
+<script>
+    //USER LOGIN
+    document.getElementById("loginbut").onclick = function(e){
+        e.preventDefault();
+        console.log(document.getElementById("username").value);
+
+        $.ajax({
+            url:"controller/user_c.php",
+            dataType:"json",
+            type:"POST",
+            data:{
+                method:"user_logged_in",
+                username:document.getElementById("username").value,
+                password:document.getElementById("password").value,
+            },
+            success:function(resp){
+                /*alert("USER LOGGED IN!");*/
+                console.log(resp[0]);
+                sessionStorage.user_id = resp[0].user_id;
+                window.location.assign("service_all.html");
+            } 
         });
-    </script>
-</html>
+    }
+</script>

@@ -250,7 +250,7 @@ input, select, button{
 #postbytitle{
     margin-left: 20px;
 }
-.edit{
+.edit, .delete, .confirm, .showcomments{
    margin-left:;
     width: 45%;
     height: 40px;
@@ -259,7 +259,7 @@ input, select, button{
     font-size: 16px;
     font-weight: ; 
 }
-.edit:hover {
+.edit:hover, .delete:hover, .confirm:hover, .showcomments:hover {
     width: 45%;
     color: white;
     background-color: #a564d3;
@@ -383,7 +383,14 @@ input, select, button{
     background-color:#fff;
     box-shadow: 20px 20px 20px #999
 }
-
+#info, #no-comments, #user_info{
+    display:none;
+    overflow: scroll;
+}
+#profileimg{
+    width:200px;
+    height:auto;
+}
 #infotitle{
     font-size: 20px;
     color:#66cccc;

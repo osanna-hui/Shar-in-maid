@@ -1,215 +1,48 @@
-<!DOCTYPE html>
-<html ng-app="sharnMaid">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Shar'n Maid | Services</title>
-        <link href="../css/bootstrap.css" rel="stylesheet">
-        <link href="../css/styles.css" rel="stylesheet">
-        <style>
-            #EditDiv{
-                display:none;
-                position:fixed;
-                top:0;
-                bottom:0;
-                left:0;
-                right:0;
-                width:500px;
-                height:600px;
-                margin:auto;
-                padding:10px;
-                z-index:5;
-                background-color:#fff;
-                box-shadow: 20px 20px 20px #999
-            }
-        </style>
-    </head>
-    
-    <body>
-        <img class="logo" src="../images/logo.png" alt="Shar'n Maids">
-        <div id="display" ng-controller='serviceControl'>
-            <h1 id="postbytitle">{{serviceName}}</h1>
-            <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
-                <img class="servimg" src="../uploads/{{service.serv_img}}"/>
-                <h2 id="title">Type: {{service.serv_type}}</h2>
-                <p>Description: {{service.serv_desc}}</p>
-                <h2 id="title">Price: ${{service.serv_price}}</h2>
-                <p>Area: {{service.serv_area}}</p>
-                <button class="edit" id="{{service.serv_id}}">Edit This Post</button>
-                <button class="delete" id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete This Post</button>
-                
-            </div>
-            <h2 id="no_post"></h2>
-            <div id="EditDiv">
-                <div id="close">X</div>
-                <div class="update_form">
-                    <h3>Upload a new service image</h3>
-                    <input id="ServiceImg" type="file" placeholder="YOUR SERVICE IMAGE"/>
-                    <button class="btn btn-default" id="upload">UPLOAD NEW SERVICE IMAGE</button>
-                </div>
-                <label for="new_type">New Service Type:</label><br/>
-                <select id='new_type' placeholder='NEW SERVICE TYPE' required autofocus>
-                    <option value="STUDIO">STUDIO</option>
-                    <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
-                    <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
-                    <option value="ONE BEDROOM TOWN HOUSE">ONE BEDROOM TOWN HOUSE</option>
-                    <option value="TWO OR MORE BEDROOM TOWN HOUSE">TWO OR MORE BEDROOM TOWN HOUSE</option>
-                    <option value="DETACHED HOME">DETACHED HOME</option>
-                </select>
-                <br/>
-                <label for="new_desc">New Description:</label><br/>
-                <input id="new_desc" placeholder="NEW DESCRIPTION"/><br/>
-                <label for="new_price">New Price:</label><br/>
-                <input id="new_price" placeholder="NEW PRICE"/><br/>
-                <label for="new_area">New Area:</label><br/>
-                <input id="new_area" placeholder="NEW AREA"/><br/>
-                <button class="comfirm" id="update_edits">CONFIRM EDITS</button>
-            </div>
+<div id="display" ng-controller='ownServiceControl'>
+    <h1 id="postbytitle">{{serviceName}}</h1>
+    <div class="service_div" id="{{service.serv_id}}" ng-repeat='service in services'>
+        <img class="servimg" src="uploads/{{service.serv_img}}"/>
+        <h2 id="title">Type: {{service.serv_type}}</h2>
+        <p>Description: {{service.serv_desc}}</p>
+        <h2 id="title">Price: ${{service.serv_price}}</h2>
+        <p>Area: {{service.serv_area}}</p>
+        <button class="showcomments" id="{{service.serv_id}}">Show Comments</button>
+        <br>
+        <button class="edit" id="{{service.serv_id}}">Edit This Post</button>
+        <button class="delete" id="{{service.serv_id}}" ng-click="delete(service.serv_id)">Delete This Post</button>
+    </div>
+    <h2 id="no_post"></h2>
+    <div id="EditDiv">
+        <div id="close">X</div>
+        <div class="update_form">
+            <h3>Upload a new service image</h3>
+            <input id="ServiceImg" type="file" placeholder="YOUR SERVICE IMAGE"/>
+            <button class="btn btn-default" id="upload">UPLOAD NEW SERVICE IMAGE</button>
         </div>
-    </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script>
-        
-    
-        var thisApp = angular.module("sharnMaid", []);
-        
-        thisApp.controller("serviceControl", ["$scope", function($scope){
-            $scope.serviceName = "Services Posted By You:";
-            
-            console.log("User ID: "+sessionStorage.user_id);
-            $.ajax({
-                url:"../controller/service_c.php",
-                dataType:"json",
-                type:"POST",
-                data:{
-                    method:"get_user_service",
-                    user_id:sessionStorage.user_id,
-                },
-                success:function(resp){
-                    console.log(resp);
-
-                    if (resp.length == 0){
-                        document.getElementById("no_post").innerHTML = "Looks like you haven't posted anything yet!";
-                    }
-                    $scope.$apply(function(){
-                        $scope.services = resp;
-                    });
-
-                    $scope.delete = function(servId){
-                        $.ajax({
-                            url:"../controller/service_c.php",
-                            type:"POST",
-                            dataType:"JSON",
-                            data:{
-                                method:"delete_service",
-                                serv_id:servId
-                            },
-                            success:function(resp1){
-                                location.reload();
-                                console.log("deleted service");
-
-                            }
-                        });
-                    }
-
-                    $(".edit").click(function(){
-                        var serv_id = this.id;
-                        console.log(serv_id);
-                        document.getElementById("EditDiv").style.display = "block";
-
-                        document.getElementById("close").onclick = function(){
-                            document.getElementById("EditDiv").style.display = "none";
-                        }
-
-                        var myfiles = document.getElementById("ServiceImg");
-                        var submit = document.getElementById("submit");
-
-                        document.getElementById("upload").onclick = function(e){
-                            e.preventDefault();
-
-                            console.log(sessionStorage.user_id);
-                            var formData = new FormData();
-                            
-                            var allFiles = myfiles.files;
-                            
-                            for (var i = 0; i<allFiles.length; i++){
-                                var file = allFiles[i];
-                                
-                                if(file.type.match("image/*")){
-                                    formData.append("images[]", file, file.name);
-                                    formData.append ("userid", sessionStorage.user_id);
-                                } else {
-                                    alert("IMAGE ONLY!!!");
-                                    return false;
-                                }
-                            }
-                            
-                            var xhr = new XMLHttpRequest();
-                            
-                            xhr.open("POST", "upload.php", true);
-                            
-                            xhr.onload = function(){
-                                if(xhr.status == 200){
-                                    alert("Loaded upload.php successfully");
-                                }
-                                if(xhr.status == 404){
-                                    alert("Page Not Found!");
-                                }
-                            }
-                            
-                            xhr.send(formData);
-                            
-                            console.log(myfiles.files);
-                            console.log(myfiles.files[0].name);
-                            $.ajax({
-                                url:"../controller/service_c.php",
-                                type:"POST",
-                                dataType:"JSON",
-                                data:{
-                                    method:"update_service_img",
-                                    serv_id:serv_id,
-                                    img_url:sessionStorage.user_id+"/"+myfiles.files[0].name
-                                },
-                                success:function(resp3){
-                                    console.log("uploaded");
-                                }
-                            });
-                        }
-
-
-
-                        document.getElementById("update_edits").onclick = function(){
-                            
-                            $.ajax({
-                                url:"../controller/service_c.php",
-                                type:"POST",
-                                dataType:"JSON",
-                                data:{
-                                    method:"update_service",
-                                    serv_id:serv_id,
-                                    new_type:document.getElementById("new_type").value,
-                                    new_desc:document.getElementById("new_desc").value,
-                                    new_area:document.getElementById("new_area").value,
-                                    new_price:document.getElementById("new_price").value,
-                                },
-                                success:function(resp2){
-                                    location.reload();
-                                    console.log("updated service");
-                                },
-                                error:function(error){
-                                    console.log(error);
-                                }
-                            });
-                        }
-
-                    });
-                }
-            });
-        }]);
-
-          
-             
-        
-    </script>
-
-</html>
+        <label for="new_type">New Service Type:</label><br/>
+        <select id='new_type' placeholder='NEW SERVICE TYPE' required autofocus>
+            <option value="STUDIO">STUDIO</option>
+            <option value="ONE BEDROOM APARTMENT">ONE BEDROOM APARTMENT</option>
+            <option value="TWO OR MORE BEDROOMS APARTMENT">TWO OR MORE BEDROOMS APARTMENT</option>
+            <option value="ONE BEDROOM TOWN HOUSE">ONE BEDROOM TOWN HOUSE</option>
+            <option value="TWO OR MORE BEDROOM TOWN HOUSE">TWO OR MORE BEDROOM TOWN HOUSE</option>
+            <option value="DETACHED HOME">DETACHED HOME</option>
+        </select>
+        <br/>
+        <label for="new_desc">New Description:</label><br/>
+        <input id="new_desc" placeholder="NEW DESCRIPTION"/><br/>
+        <label for="new_price">New Price:</label><br/>
+        <input id="new_price" placeholder="NEW PRICE"/><br/>
+        <label for="new_area">New Area:</label><br/>
+        <input id="new_area" placeholder="NEW AREA"/><br/>
+        <button class="comfirm" id="update_edits">CONFIRM EDITS</button>
+    </div>
+    <div id="EditCommentsDiv">
+        <div id="CloseEditCommentsDiv">X</div>
+        <div id="service_own_comments">
+            <h3 class="info-labels">COMMENTS:</h3>
+            <div id="service_own_display_comments"></div>
+            <h5 id="service_own_no-comments">Looks like there are no comments for this service</h5>
+        </div>
+    </div>
+</div>
