@@ -5,9 +5,9 @@ function insert_comment(){
     //create info for users
     global $db;
     
-    $query = "INSERT INTO comments (text, serv_id, user_id) VALUES ('".$_POST['text']."', '".$_POST['serv_id']."', ".$_POST['user_id'].")";
+    $query = "INSERT INTO comments (text, serv_id, user_id) VALUES ('".$_POST['text']."', '".$_POST['serv_id']."', '".$_POST['user_id']."')";
     $result = $db->query($query);
-    echo $query;
+    echo json_encode($result->fetchAll());
 }
 
 function get_comments(){
