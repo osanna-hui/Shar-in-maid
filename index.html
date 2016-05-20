@@ -10,8 +10,6 @@
 
         <link href="css/styles.css" rel="stylesheet">
 
-        
-
     </head>
     
     <body>
@@ -24,14 +22,20 @@
                 <li><a href="service_own">view your service(s)</a></li>
                 <li><a href="favourites_all">view your favourite(s)</a></li>
                 <li><a href="service_all">view all services</a></li>
-                <li><a href="service_post">add a new service</a></li>
+                <li><a href="service_postnew">add a new service</a></li>
                 <li><a href="service_search">search services</a></li>
             </ul>
         </nav>
 
         <div ng-view></div>
 
-
+        <script>
+/*            if (sessionStorage.length == 0){
+                window.location = "user_login";
+            } else {
+                window.location = "service_all";
+            }*/
+        </script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
         <script src="js/angular.min.js"></script>

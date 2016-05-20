@@ -37,6 +37,12 @@
 <!-- This is the script for uploading image -->
 <script>
 
+    document.getElementById("logout").onclick = function(){
+        sessionStorage.clear();
+        alert("logged out, session cleared");
+        window.location = "user_login";
+    }
+
     var myfiles = document.getElementById("ProfileImg");
     var upload = document.getElementById("upload");
 
@@ -62,7 +68,7 @@
         
         var xhr = new XMLHttpRequest();
         
-        xhr.open("POST", "upload.php", true);
+        xhr.open("POST", "./upload.php", true);
         
         xhr.onload = function(){
             if(xhr.status == 200){

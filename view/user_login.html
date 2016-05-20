@@ -4,7 +4,7 @@
         <input class="form-control" id='password' type='password' placeholder='Password'/>
         <button class="btn btn-default" id='loginbut'>Login</button>
     </form>
-    <p>--------- or ---------</p>
+    <p class="center">--------- or ---------</p>
     <a href="user_signup"><div class="btn">Sign Up!</div></a>
 </div>
 
@@ -31,9 +31,5 @@
             } 
         });
     }
-    document.getElementById("logout").onclick = function(){
-        sessionStorage.clear();
-        alert("logged out, session cleared");
-        location.reload();
-    }
+
 </script>
