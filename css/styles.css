@@ -307,7 +307,7 @@ nav li a:hover{
 }
 /* // user service page // */
 
-#EditDiv{
+#EditDiv, #EditCommentsDiv{
     display:none;
     position:fixed;
     top:0;
@@ -464,7 +464,10 @@ nav li a:hover{
 }
 #info, #no-comments, #user_info{
     display:none;
-    overflow: scroll;
+    overflow-y: scroll;
+}
+#no-post{
+    display:none;
 }
 #profileimg{
     width:200px;
@@ -516,14 +519,14 @@ nav li a:hover{
 
 /* // all pop up // */
 
-#close{
+#close, #CloseEditCommentsDiv{
     float:right;
 }
 .img_title, #close{
     cursor:pointer;
     color: #76459e;
 }
-#close:hover{
+#close:hover, #CloseEditCommentsDiv:hover{
     cursor:pointer;
     color:#a564d3;
 

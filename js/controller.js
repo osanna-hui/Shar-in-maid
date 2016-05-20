@@ -105,7 +105,7 @@ ctrl.controller("allServiceControl", ["$scope", function($scope){
                             
                             document.getElementById("viewuserposts").onclick = function(){
                                 sessionStorage.view_userID = resp1[0].user_id;
-                                window.location = "service_other_user.html";
+                                window.location = "service_other_user";
                             }
 
                             document.getElementById("backtopost").onclick = function(){
@@ -249,6 +249,11 @@ ctrl.controller("otherUserServiceControl", ["$scope", function($scope){
                                 },
                                 success:function(resp3){
                                     console.log(resp3);
+                                    alert('Now in your favourite');
+
+                                },
+                                error:function(error){
+                                    console.log(error);
                                 }
                             });
                         }
@@ -557,6 +562,10 @@ ctrl.controller("searchServiceControl", ["$scope", function($scope){
                 $scope.$apply(function(){
                     $scope.services = resp;
                 });
+                
+                if (resp.length == 0){
+                    document.getElementById("no-post").style.display = 'block';
+                }
 
                 $(".serv_title").click(function(){
                     var id = this.id;

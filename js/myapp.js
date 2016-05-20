@@ -29,9 +29,9 @@ myApp.config([
 				controller:"searchServiceControl"
 			}
 		).when(
-			"/service_post",
+			"/service_postnew",
 			{
-				templateUrl: "view/service_post.html"
+				templateUrl: "view/service_postnew.html"
 			}
 		).when(
 			"/service_all",
